@@ -1,0 +1,917 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>social mind 舆情分析平台</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+
+    <script src="{% static 'assets0/layui/layui.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'assets0/layui/css/layui.css' %}" media="all">
+    <link href="{% static 'assets0/css/bootstrap.css' %}" rel="stylesheet">
+    <!--external css -->
+    <link href="{% static 'assets0/font-awesome/css/font-awesome.css' %}" rel="stylesheet"/>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'assets0/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'assets0/css/style-responsive.css' %}" rel="stylesheet">
+    <link href="{% static 'assets0/dataTable/css/jquery.dataTables.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'assets0/layui/css/layui.css' %}" media="all">
+    <script src="{% static 'assets0/js/chart-master/Chart.js' %}"></script>
+    <script src="{% static 'assets0/js/echarts.js' %}"></script>
+    <script src="{% static 'assets0/js/wordcloud2.js' %}"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        .imgsize{
+            width: 128px;
+            height: 128px;
+        }
+        table tr td input {
+            border: 0px;
+            width: 100%;
+            outline: none;
+        }
+        .icon-signal {
+            background-position: -408px 0
+        }
+
+        span.icon {
+            border-right: 1px solid #cdcdcd;
+            padding: 9px 10px 7px 11px;
+            float: left;
+            opacity: .7;
+        }
+
+        .r4_counter {
+            min-height: 100px;
+            margin-bottom: 15px;
+            border-radius: 7px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s ease-in-out;
+            background: #ffffff;
+            -webkit-box-shadow: 0 2px 28px rgba(0, 0, 0, .1);
+            box-shadow: 0 2px 28px rgba(0, 0, 0, .1);
+        }
+
+        .r4_counter .stats {
+            margin-left: 50px;
+        }
+
+        .ico-icon {
+            position: relative;
+        }
+
+        .ico-icon-w {
+            position: absolute;
+            top: 0;
+            left: 0
+        }
+
+        .ico-icon-w,
+        .r4_counter:hover .ico-icon .ico-icon-w {
+            visibility: hidden;
+        }
+
+        .r4_counter:hover .ico-icon .ico-icon-w {
+            visibility: visible;
+        }
+
+        .r4_counter.has-gradient-to-right-bottom .stats span {
+            color: #f7f7f7;
+        }
+
+        .r4_counter.has-gradient-to-right-bottom,
+        .r4_counter:hover {
+            -webkit-box-shadow: 0 1px 28px rgba(255, 152, 0, .66);
+            box-shadow: 0 1px 28px rgba(255, 152, 0, .66);
+            cursor: pointer;
+        }
+
+        .r4_counter:hover {
+            background-image: linear-gradient(to right bottom, #e8962e, #e45131) !important;
+        }
+
+        .r4_counter:hover h3 {
+            color: #fff
+        }
+
+        .r4_counter:hover span {
+            color: #f7f7f7
+        }
+
+        .r4_counter:hover .icon-primary {
+            color: #fff
+        }
+
+        .r4_counter .icon-after {
+            position: absolute;
+            width: 30%;
+            line-height: 75px;
+            height: 92%;
+            font-size: 84px;
+            color: #f7f7f7;
+            top: 5px;
+            right: 0;
+        }
+
+        .r4_counter.has-gradient-to-right-bottom .icon-after,
+        .r4_counter:hover .icon-after {
+            opacity: 0.2
+        }
+
+        .r4_counter .fa {
+            margin-right: 0px;
+            width: 66px;
+            height: 66px;
+            text-align: center;
+        }
+
+        .r4_counter h4 {
+            margin: 10px 0 5px 0;
+        }
+
+        .db_box {
+            background-color: #ffffff;
+            box-shadow: 0 1px 3px rgba(33, 33, 33, .2);
+            -webkit-box-shadow: 0 1px 3px rgba(33, 33, 33, .2);
+            -moz-box-shadow: 0 1px 3px rgba(33, 33, 33, .2);
+            -o-box-shadow: 0 1px 3px rgba(33, 33, 33, .2);
+            -ms-box-shadow: 0 1px 3px rgba(33, 33, 33, .2);
+
+        }
+
+        .db_box {
+            padding: 15px;
+        }
+
+        .db_box.db_box_large {
+            max-width: inherit;
+            background-color: #ffffff;
+            float: left;
+            margin: 0px 2% 0px 0px;
+            padding: 30px;
+            color: #757575 !important;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .db_box.db_box_large .bold {
+            text-align: left;
+            float: left;
+        }
+
+        .db_box.db_box_large .pull-right {
+            text-align: right;
+        }
+
+        .db_box.db_box_large .clearfix {
+            width: 100%;
+            height: 1px;
+            margin-bottom: 40px;
+        }
+
+        .wrapper1 {
+            display: inline-block;
+            margin-top: 0px;
+            padding-left: 15px;
+            padding-right: 15px;
+            padding-bottom: 15px;
+            padding-top: 0px;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* .btn:hover {
+            text-decoration: none !important;
+        } */
+    </style>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header layui-bg-cyan">
+        <div class="layui-logo">socialmind</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left layui-bg-cyan">
+            {% csrf_token %}
+            {% if request.session.user_type == "个人用户" %}
+                <li class="layui-nav-item"><a href="/person_index/">首页</a></li>
+                <li class="layui-nav-item"><a href="/events/?role=个人用户&type=全网热点">全网热点</a></li>
+                <li class="layui-nav-item"><a href="/events/?role=个人用户&type=当地新闻">当地新闻</a></li>
+                <li class="layui-nav-item"><a href="/events/?role=个人用户&type=敏感信息">关注领域</a></li>
+                <li class="layui-nav-item"><a href="/events/?role=个人用户&type=领域相关">系统推荐</a></li>
+                <li class="layui-nav-item"><a href="/fileSearch/?role=政府用户">全网文章搜索</a></li>
+            {% elif request.session.user_type == "企业用户" %}
+                <li class="layui-nav-item"><a href="/com_index/">首页</a></li>
+                <li class="layui-nav-item"><a href="/events/?role=企业用户&type=企业相关">企业相关</a></li>
+                <li class="layui-nav-item"><a href="/events/?role=企业用户&type=当地新闻">当地新闻</a></li>
+                <li class="layui-nav-item"><a href="/events/?role=企业用户&type=敏感信息">敏感信息</a></li>
+                <li class="layui-nav-item"><a href="/events/?role=企业用户&type=领域相关">领域相关</a></li>
+                <li class="layui-nav-item"><a href="/events/?role=企业用户&type=行业信息">行业信息</a></li>
+                <li class="layui-nav-item"><a href="/competitive_products/">竞品信息</a></li>
+                <li class="layui-nav-item"><a href="/eventSearch/">全网事件搜索</a></li>
+                <li class="layui-nav-item"><a href="/fileSearch/">全网文章搜索</a></li>
+            {% elif request.session.user_type == "政府用户" %}
+                <li class="layui-nav-item"><a href="/gov_index/">首页</a></li>
+                <li class="layui-nav-item"><a href="/events/?role=政府用户&type=政务相关">政务相关</a></li>
+                <li class="layui-nav-item"><a href="/events/?role=政府用户&type=当地新闻">当地新闻</a></li>
+                <li class="layui-nav-item"><a href="/events/?role=政府用户&type=敏感信息">敏感信息</a></li>
+                <li class="layui-nav-item"><a href="/events/?role=政府用户&type=领域相关">领域相关</a></li>
+                <li class="layui-nav-item"><a href="/events/?role=政府用户&type=上下级信息">上下级信息</a></li>
+                <li class="layui-nav-item"><a href="/eventSearch/">全网事件搜索</a></li>
+                <li class="layui-nav-item"><a href="/fileSearch/">全网文章搜索</a></li>
+            {% elif request.session.user_type == "事业单位用户" %}
+                <li class="layui-nav-item"><a href="/govcom_index/">首页</a></li>
+                <li class="layui-nav-item"><a href="/events/?role=事业单位用户&type=工作相关">工作相关</a></li>
+                <li class="layui-nav-item"><a href="/events/?role=事业单位用户&type=当地新闻">当地新闻</a></li>
+                <li class="layui-nav-item"><a href="/events/?role=事业单位用户&type=敏感信息">敏感信息</a></li>
+                <li class="layui-nav-item"><a href="/events/?role=事业单位用户&type=领域相关">领域相关</a></li>
+                <li class="layui-nav-item"><a href="/events/?role=事业单位用户&type=上下级信息">上下级信息</a></li>
+                <li class="layui-nav-item"><a href="/eventSearch/">全网事件搜索</a></li>
+                <li class="layui-nav-item"><a href="/fileSearch/">全网文章搜索</a></li>
+            {% endif %}
+        </ul>
+        <ul class="layui-nav layui-layout-right layui-bg-cyan">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="/static/upload/test.jpg" class="layui-nav-img">
+                    {{request.session.user_type}}
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="/profile/">基本资料</a></dd>
+                    <dd><a href="/jianbao/">简报制作</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="/logout/">退出</a></li>
+        </ul>
+    </div>
+
+
+    <div class="layui-body">
+        <section class="wrapper1">
+            <div class="col-lg-9 main-chart mb">
+                <div class="row">
+                    <div class="col-lg-9 white-panel">
+                        <table style="width: 80%; margin-left: 10%;">
+                            <tbody>
+                            <tr>
+                                <td id="selfPic" style="width: 30%">
+                                    {% csrf_token %}
+                                    <img src="{% static 'assets0/img/star.jpg' %}" style="width: 100%;display: none">
+                                    <img src="{{photo}}" style="width: 233px;height: 214.8px;margin-top: 31px;margin-bottom: 31px">
+                                </td>
+                                <td id="selfInformation" style="width: 40%; height: 200px; padding-left: 40px;">
+                                    {% csrf_token %}
+                                    {% if request.session.user_type == "个人用户" %}
+                                        <h2 style="text-align: left; font-size: 40px;">{{ username }}</h2>
+                                        <ul style="width: 40%; float: left; text-align: left; line-height: 30px;">
+                                            <li><strong>&nbsp;&nbsp;用户类型：</strong></li>
+                                            <li><strong>&nbsp;&nbsp;邮箱：</strong></li>
+                                            <li><strong>&nbsp;&nbsp;性别：</strong></li>
+                                            <li><strong>&nbsp;&nbsp;生日：</strong></li>
+                                            <li><strong>&nbsp;&nbsp;手机号码：</strong></li>
+                                            <li><strong>&nbsp;&nbsp;兴趣：</strong></li>
+                                            <li><strong>&nbsp;&nbsp;职业：</strong></li>
+                                            <li><strong>&nbsp;&nbsp;真实姓名：</strong></li>
+
+                                        </ul>
+                                        <ul style="width: 40%; margin-left: 50%; text-align: left; line-height: 30px;">
+                                            <li>{{ role }}</li>
+                                            <li>{{ email }}</li>
+                                            <li>{{ sex }}</li>
+                                            <li>{{ birthday }}</li>
+                                            <li>{{ phoneNumber }}</li>
+                                            <li>{{ hobby }}</li>
+                                            <li>{{ career }}</li>
+                                            <li>{{ realname }}</li>
+                                        </ul>
+                                    {% elif request.session.user_type == "企业用户" %}
+                                        <div class="white-header">
+                                            <h2 style="text-align: left; font-size: 40px;">{{ username }}</h2>
+                                        </div>
+                                        <ul style="width: 40%; float: left; text-align: left; line-height: 30px;">
+                                            <li><strong>&nbsp;&nbsp;用户类型：</strong></li>
+                                            <li><strong>&nbsp;&nbsp;邮箱：</strong></li>
+                                            <li><strong>&nbsp;&nbsp;公司名称：</strong></li>
+                                            <li><strong>&nbsp;&nbsp;‍经营范围：</strong></li>
+                                            <li><strong>&nbsp;&nbsp;关注领域：</strong></li>
+                                        </ul>
+                                        <ul style="width: 40%; margin-left: 50%; text-align: left; line-height: 30px;">
+                                            <li>{{ role }}</li>
+                                            <li>{{ email }}</li>
+                                            <li>{{ companyname }}{{companytype}}</li>
+                                            <li>{{ businessscope }}</li>
+                                            <li>{{ interest }}</li>
+                                        </ul>
+                                    {% elif request.session.user_type == "政府用户" %}
+                                        <div class="white-header">
+                                            <h2 style="text-align: left; font-size: 40px;">{{ username }}</h2>
+                                        </div>
+                                        <ul style="width: 40%; float: left; text-align: left; line-height: 30px;">
+                                            <li><strong>&nbsp;&nbsp;用户类型：</strong></li>
+                                            <li><strong>&nbsp;&nbsp;邮箱：</strong></li>
+                                            <li><strong>&nbsp;&nbsp;机关名称：</strong></li>
+                                            <li><strong>&nbsp;&nbsp;‍法人代表名称：</strong></li>
+                                            <li><strong>&nbsp;&nbsp;机关工作领域：</strong></li>
+                                        </ul>
+                                        <ul style="width: 40%; margin-left: 50%; text-align: left; line-height: 30px;">
+                                            <li>{{ role }}</li>
+                                            <li>{{ email }}</li>
+                                            <li>{{ govname }}</li>
+                                            <li>{{ bossname }}</li>
+                                            <li>{{ type }}</li>
+                                        </ul>
+                                    {% elif request.session.user_type == "事业单位用户" %}
+                                        <div class="white-header">
+                                            <h2 style="text-align: left; font-size: 40px;">{{ username }}</h2>
+                                        </div>
+                                        <ul style="width: 40%; float: left; text-align: left; line-height: 30px;">
+                                            <li><strong>&nbsp;&nbsp;用户类型：</strong></li>
+                                            <li><strong>&nbsp;&nbsp;邮箱：</strong></li>
+                                            <li><strong>&nbsp;&nbsp;单位名称：</strong></li>
+                                            <li><strong>&nbsp;&nbsp;‍法人代表名称：</strong></li>
+                                            <li><strong>&nbsp;&nbsp;单位工作领域：</strong></li>
+                                        </ul>
+                                        <ul style="width: 40%; margin-left: 50%; text-align: left; line-height: 30px;">
+                                            <li>{{ role }}</li>
+                                            <li>{{ email }}</li>
+                                            <li>{{ institutionName }}</li>
+                                            <li>{{ bossname }}</li>
+                                            <li>{{ type }}</li>
+                                        </ul>
+                                    {% endif %}
+                                    </ul>
+                                </td>
+                                <td id="editInformation" style="height: 200px;">
+                                    <!-- <button data-toggle="modal" data-target="#UsrInformation" class="btn btn-warning" style=" margin-top: 180px;">编辑资料</button> -->
+                                    <button id="bianjiziliao" data-method="setTop" class="btn btn-warning" style=" margin-top: 180px;">编辑资料</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row mt">
+                    <div class="col-lg-8 white-panel" style="padding-left: 0px; padding-bottom: 15px;">
+                        <div class="col-lg-9">
+                            <div class="files" id="items">
+                                <strong class="historyTitle">我的浏览</strong>
+                                <a href="javascript:void(0)" onclick="clickedHistory(0)" style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;事件浏览</a>
+                                <a href="javascript:void(0)" onclick="toFiles(0)" style="color: #999999;">&nbsp;&nbsp;&nbsp;&nbsp;文章浏览</a>
+                                <div class="filesTable mt">
+                                    <table class="filesBlock">
+                                        <tr>
+                                            <td class="verticalBottom" style="width: 15%;"><strong style="font-size: 20px;">事件标题</strong></td>
+                                            <td class="verticalBottom"><p>&nbsp; &nbsp;时间： 2017-10-20 &nbsp; &nbsp; &nbsp; 事件分类： 个人事件</p></td>
+                                            <td class="verticalBottom" style="text-align: right;">
+                                                <button type="button" class="btn btn-warning mt" style="font-size: 10px;">点赞 1</button>
+                                                <button type="button" class="btn btn-warning mt" style="font-size: 10px;">评论 2</button>
+                                                <button type="button" class="btn btn-warning mt" style="font-size: 10px; margin-right: 15px;">收藏 3</button>
+                                            </td>
+                                        </tr>
+                                        <tr class="fileTextTr">
+                                            <td colspan="3" class="fileP">
+                                                <a href="/fileParticular/">
+                                                    <p class="to-much-p">
+                                                        测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                    </p>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="filesTable mt">
+                                    <table class="filesBlock">
+                                        <tr>
+                                            <td class="verticalBottom" style="width: 15%;"><strong style="font-size: 20px;">事件标题</strong></td>
+                                            <td class="verticalBottom"><p>&nbsp; &nbsp;时间： 2017-10-20 &nbsp; &nbsp; &nbsp; 事件分类： 个人事件</p></td>
+                                            <td class="verticalBottom" style="text-align: right;">
+                                                <button type="button" class="btn btn-warning mt" style="font-size: 10px;">点赞 1</button>
+                                                <button type="button" class="btn btn-warning mt" style="font-size: 10px;">评论 2</button>
+                                                <button type="button" class="btn btn-warning mt" style="font-size: 10px; margin-right: 15px;">收藏 3</button>
+                                            </td>
+                                        </tr>
+                                        <tr class="fileTextTr">
+                                            <td colspan="3" class="fileP">
+                                                <a href="/fileParticular/">
+                                                    <p class="to-much-p">
+                                                        测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                    </p>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="filesTable mt">
+                                    <table class="filesBlock">
+                                        <tr>
+                                            <td class="verticalBottom" style="width: 15%;"><strong style="font-size: 20px;">事件标题</strong></td>
+                                            <td class="verticalBottom"><p>&nbsp; &nbsp;时间： 2017-10-20 &nbsp; &nbsp; &nbsp; 事件分类： 个人事件</p></td>
+                                            <td class="verticalBottom" style="text-align: right;">
+                                                <button type="button" class="btn btn-warning mt" style="font-size: 10px;">点赞 1</button>
+                                                <button type="button" class="btn btn-warning mt" style="font-size: 10px;">评论 2</button>
+                                                <button type="button" class="btn btn-warning mt" style="font-size: 10px; margin-right: 15px;">收藏 3</button>
+                                            </td>
+                                        </tr>
+                                        <tr class="fileTextTr">
+                                            <td colspan="3" class="fileP">
+                                                <a href="/fileParticular/">
+                                                    <p class="to-much-p">
+                                                        测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                    </p>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="filesTable mt">
+                                    <table class="filesBlock">
+                                        <tr>
+                                            <td class="verticalBottom" style="width: 15%;"><strong style="font-size: 20px;">事件标题</strong></td>
+                                            <td class="verticalBottom"><p>&nbsp; &nbsp;时间： 2017-10-20 &nbsp; &nbsp; &nbsp; 事件分类： 个人事件</p></td>
+                                            <td class="verticalBottom" style="text-align: right;">
+                                                <button type="button" class="btn btn-warning mt" style="font-size: 10px;">点赞 1</button>
+                                                <button type="button" class="btn btn-warning mt" style="font-size: 10px;">评论 2</button>
+                                                <button type="button" class="btn btn-warning mt" style="font-size: 10px; margin-right: 15px;">收藏 3</button>
+                                            </td>
+                                        </tr>
+                                        <tr class="fileTextTr">
+                                            <td colspan="3" class="fileP">
+                                                <a href="/fileParticular/">
+                                                    <p class="to-much-p">
+                                                        测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                    </p>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="filesTable mt">
+                                    <table class="filesBlock">
+                                        <tr>
+                                            <td class="verticalBottom" style="width: 15%;"><strong style="font-size: 20px;">事件标题</strong></td>
+                                            <td class="verticalBottom"><p>&nbsp; &nbsp;时间： 2017-10-20 &nbsp; &nbsp; &nbsp; 事件分类： 个人事件</p></td>
+                                            <td class="verticalBottom" style="text-align: right;">
+                                                <button type="button" class="btn btn-warning mt" style="font-size: 10px;">点赞 1</button>
+                                                <button type="button" class="btn btn-warning mt" style="font-size: 10px;">评论 2</button>
+                                                <button type="button" class="btn btn-warning mt" style="font-size: 10px; margin-right: 15px;">收藏 3</button>
+                                            </td>
+                                        </tr>
+                                        <tr class="fileTextTr">
+                                            <td colspan="3" class="fileP">
+                                                <a href="/fileParticular/">
+                                                    <p class="to-much-p">
+                                                        测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                    </p>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="filesTable mt">
+                                    <table class="filesBlock">
+                                        <tr>
+                                            <td class="verticalBottom" style="width: 15%;"><strong style="font-size: 20px;">事件标题</strong></td>
+                                            <td class="verticalBottom"><p>&nbsp; &nbsp;时间： 2017-10-20 &nbsp; &nbsp; &nbsp; 事件分类： 个人事件</p></td>
+                                            <td class="verticalBottom" style="text-align: right;">
+                                                <button type="button" class="btn btn-warning mt" style="font-size: 10px;">点赞 1</button>
+                                                <button type="button" class="btn btn-warning mt" style="font-size: 10px;">评论 2</button>
+                                                <button type="button" class="btn btn-warning mt" style="font-size: 10px; margin-right: 15px;">收藏 3</button>
+                                            </td>
+                                        </tr>
+                                        <tr class="fileTextTr">
+                                            <td colspan="3" class="fileP">
+                                                <a href="/fileParticular/">
+                                                    <p class="to-much-p">
+                                                        测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                    </p>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="filesTable mt">
+                                    <table class="filesBlock">
+                                        <tr>
+                                            <td class="verticalBottom" style="width: 15%;"><strong style="font-size: 20px;">事件标题</strong></td>
+                                            <td class="verticalBottom"><p>&nbsp; &nbsp;时间： 2017-10-20 &nbsp; &nbsp; &nbsp; 事件分类： 个人事件</p></td>
+                                            <td class="verticalBottom" style="text-align: right;">
+                                                <button type="button" class="btn btn-warning mt" style="font-size: 10px;">点赞 1</button>
+                                                <button type="button" class="btn btn-warning mt" style="font-size: 10px;">评论 2</button>
+                                                <button type="button" class="btn btn-warning mt" style="font-size: 10px; margin-right: 15px;">收藏 3</button>
+                                            </td>
+                                        </tr>
+                                        <tr class="fileTextTr">
+                                            <td colspan="3" class="fileP">
+                                                <a href="/fileParticular/">
+                                                    <p class="to-much-p">
+                                                        测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                        试测试测试测试测试测试测试测试测试测试试测试测试测试测试测试测试测试测试测试
+                                                    </p>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" style="padding-right: 0px;">
+                        <div class="white-panel donut-chart" style="height: 400px;">
+                            <button class="bigButtonClicked buttonFlag" onclick="clickedHistory(0)" id="borwsed"><p>我的浏览</p>1100</button>
+                            <button class="bigButton buttonFlag" onclick="clickedHistory(1)" id="collected"><p>我的收藏</p>200</button>
+                            <button class="bigButton buttonFlag" onclick="clickedHistory(2)" id="stared"><p>我的点赞</p>3303</button>
+                            <button class="bigButton buttonFlag" onclick="clickedHistory(3)" id="discussed"><p>我的评论</p>554</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    {% csrf_token %}
+    {% if request.session.user_type == "个人用户" %}
+    <script>
+            layui.use('layer', function(){ //独立版的layer无需执行这一句
+                var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+                var active = {
+                    setTop: function(){
+                        var that = this;
+                        //多窗口模式，层叠置顶
+                        layer.open({
+                            type: 2 //此处以iframe举例
+                            ,title: '编辑资料'
+                            ,area: ['1000px','800px']
+                            ,scrollbar: true
+                            ,shade: 0
+                            ,maxmin: true
+                            ,offset: [ '35px']
+                            ,content: '/personalInfoForm/1/'
+                            ,skin: 'layui-layer-lan'
+                            ,btn: ['关闭页面'] 
+                            ,yes: function(){
+                                layer.closeAll();
+                            }
+                        });
+                    }
+                }
+                $('#bianjiziliao').on('click', function(){
+                    var othis = $(this), method = othis.data('method');
+                    active[method] ? active[method].call(this, othis) : '';
+                });
+            });
+        </script>
+        <div class="modal fade" id="UsrInformation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             style="">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">修改用户信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="XiaoMing123form">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td>User ID</td>
+                                    <td><input id="XiaoMing123UsrID" value="XiaoMing123"></td>
+                                </tr>
+                                <tr>
+                                    <td>头像</td>
+                                    <td><img src="{% static 'backgroundfiles/assets\img\ui-zac.jpg' %}"></td>
+                                </tr>
+                                <tr>
+                                    <td>角色</td>
+                                    <td><input id="XiaoMing123JueSe" value="个人用户"></td>
+                                </tr>
+                                <tr>
+                                    <td>真实姓名</td>
+                                    <td><input id="XiaoMing123Role" value="小明"></td>
+                                </tr>
+                                <tr>
+                                    <td>性别</td>
+                                    <td><input id="XiaoMing123Gender" value="男"></td>
+                                </tr>
+                                <tr>
+                                    <td>年龄</td>
+                                    <td><input id="XiaoMing123Age" value="22"></td>
+                                </tr>
+                                <tr>
+                                    <td>手机</td>
+                                    <td><input id="XiaoMing123Phone" value="13988886666"></td>
+                                </tr>
+                                <tr>
+                                    <td>邮箱</td>
+                                    <td><input id="XiaoMing123Mail" value="123@qq.com"></td>
+                                </tr>
+                                <tr>
+                                    <td>职业</td>
+                                    <td><input id="XiaoMing123Job" value="学生"></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="subm('XiaoMing123form')">修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% elif request.session.user_type == "企业用户" %}
+        <script>
+            layui.use('layer', function(){ //独立版的layer无需执行这一句
+                var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+                var active = {
+                    setTop: function(){
+                        var that = this;
+                        //多窗口模式，层叠置顶
+                        layer.open({
+                            type: 2 //此处以iframe举例
+                            ,title: '编辑资料'
+                            ,area: ['1000px','800px']
+                            ,scrollbar: true
+                            ,shade: 0
+                            ,maxmin: true
+                            ,offset: [ '35px']
+                            ,content: '/personalInfoForm/2/'
+                            ,skin: 'layui-layer-lan'
+                            ,btn: ['关闭页面'] 
+                            ,yes: function(){
+                                layer.closeAll();
+                            }
+                            /* ,zIndex: layer.zIndex //重点1
+                            ,success: function(layero){
+                              layer.setTop(layero); //重点2
+                            } */
+                        });
+                    }
+                }
+                $('#bianjiziliao').on('click', function(){
+                    var othis = $(this), method = othis.data('method');
+                    active[method] ? active[method].call(this, othis) : '';
+                });
+            });
+        </script>
+    {% elif request.session.user_type == "政府用户" %}
+    <script>
+        layui.use('layer', function(){ //独立版的layer无需执行这一句
+            var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+            var active = {
+                setTop: function(){
+                    var that = this;
+                    //多窗口模式，层叠置顶
+                    layer.open({
+                        type: 2 //此处以iframe举例
+                        ,title: '编辑资料'
+                        ,area: ['1000px','800px']
+                        ,scrollbar: true
+                        ,shade: 0
+                        ,maxmin: true
+                        ,offset: [ '35px']
+                        ,content: '/personalInfoForm/3/'
+                        ,skin: 'layui-layer-lan'
+                        ,btn: ['关闭页面'] 
+                        ,yes: function(){
+                            layer.closeAll();
+                        }
+                    });
+                }
+            }
+            $('#bianjiziliao').on('click', function(){
+                var othis = $(this), method = othis.data('method');
+                active[method] ? active[method].call(this, othis) : '';
+            });
+        });
+    </script>
+        <div class="modal fade" id="UsrInformation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             style="">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">修改用户信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="XiaoMing123form">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td>User ID</td>
+                                    <td><input id="XiaoMing123UsrID" value="XiaoMing123"></td>
+                                </tr>
+                                <tr>
+                                    <td>头像</td>
+                                    <td><img src="{% static 'backgroundfiles/assets\img\ui-zac.jpg' %}"></td>
+                                </tr>
+                                <tr>
+                                    <td>角色</td>
+                                    <td><input id="XiaoMing123JueSe" value="个人用户"></td>
+                                </tr>
+                                <tr>
+                                    <td>真实姓名</td>
+                                    <td><input id="XiaoMing123Role" value="小明"></td>
+                                </tr>
+                                <tr>
+                                    <td>性别</td>
+                                    <td><input id="XiaoMing123Gender" value="男"></td>
+                                </tr>
+                                <tr>
+                                    <td>年龄</td>
+                                    <td><input id="XiaoMing123Age" value="22"></td>
+                                </tr>
+                                <tr>
+                                    <td>手机</td>
+                                    <td><input id="XiaoMing123Phone" value="13988886666"></td>
+                                </tr>
+                                <tr>
+                                    <td>邮箱</td>
+                                    <td><input id="XiaoMing123Mail" value="123@qq.com"></td>
+                                </tr>
+                                <tr>
+                                    <td>职业</td>
+                                    <td><input id="XiaoMing123Job" value="学生"></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="subm('XiaoMing123form')">修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% elif request.session.user_type == "事业单位用户" %}
+        <div class="modal fade" id="UsrInformation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             style="">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">修改用户信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="XiaoMing123form">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td>User ID</td>
+                                    <td><input id="XiaoMing123UsrID" value="XiaoMing123"></td>
+                                </tr>
+                                <tr>
+                                    <td>头像</td>
+                                    <td><img src="{% static 'backgroundfiles/assets\img\ui-zac.jpg' %}"></td>
+                                </tr>
+                                <tr>
+                                    <td>角色</td>
+                                    <td><input id="XiaoMing123JueSe" value="个人用户"></td>
+                                </tr>
+                                <tr>
+                                    <td>真实姓名</td>
+                                    <td><input id="XiaoMing123Role" value="小明"></td>
+                                </tr>
+                                <tr>
+                                    <td>性别</td>
+                                    <td><input id="XiaoMing123Gender" value="男"></td>
+                                </tr>
+                                <tr>
+                                    <td>年龄</td>
+                                    <td><input id="XiaoMing123Age" value="22"></td>
+                                </tr>
+                                <tr>
+                                    <td>手机</td>
+                                    <td><input id="XiaoMing123Phone" value="13988886666"></td>
+                                </tr>
+                                <tr>
+                                    <td>邮箱</td>
+                                    <td><input id="XiaoMing123Mail" value="123@qq.com"></td>
+                                </tr>
+                                <tr>
+                                    <td>职业</td>
+                                    <td><input id="XiaoMing123Job" value="学生"></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="subm('XiaoMing123form')">修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+
+    <div class="layui-footer layui-bg-cyan" align="center">
+        <!-- 底部固定区域 -->
+        西安交通大学  社会智能与复杂数据处理实验室
+
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        /*$("tr td:first-child:not(#usridtd)").click(function(){
+            event.stopPropagation()
+            //alert("1")
+        });*/
+        $("td button:contains(删除)").click(function () {
+            var flg = confirm("确定删除用户？")
+            if (flg == true) {
+
+            }
+        });
+        $("tr td a").click(function () {
+            event.stopPropagation()
+            var useName = $(this).html()
+            if (useName == "XiaoMing123") {
+                $("#UsrInformation").modal({
+                    backdrop: 'static'
+                });
+            }
+            else if (useName == "QuJiangDiYiPubSenti") {
+                $("#QuJiangDiYiPubSenti").modal({
+                    backdrop: 'static'
+                });
+            }
+            else if (useName == "LXM") {
+                $("#LXM").modal({
+                    backdrop: 'static'
+                });
+            }
+            else if (useName == "XianGov") {
+                $("#XianGov").modal({
+                    backdrop: 'static'
+                });
+            }
+        });
+    });
+</script>
+<script>
+    function subm(formid) {
+        var flg = confirm("确定修改用户信息？")
+        if (flg == true) {
+            $("#" + formid).submit()
+        }
+    }
+</script>
+<script src="{% static 'assets0/js/jquery.js' %}"></script>
+<script src="{% static 'assets0/js/jquery-1.8.3.min.js' %}"></script>
+<script src="{% static 'assets0/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets0/dataTable/js/jquery.dataTables.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets0/js/fileJs/events.js' %}" type="text/javascript"></script>
+<script src="//res.layui.com/layui/src/layui.js?t=1531663423583" charset="utf-8"></script>
+<script src="{% static 'assets0/js/fileJs/personalInformation.js' %}"></script>
+<script>
+    layui.use('element', function () {
+        var element = layui.element;
+
+    });
+</script>
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cspan id='cnzz_stat_icon_30088308'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "w.cnzz.com/c.php%3Fid%3D30088308' type='text/javascript'%3E%3C/script%3E"));</script>
+</body>

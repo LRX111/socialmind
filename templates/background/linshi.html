@@ -1,0 +1,117 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>可编辑的下拉列表</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.17/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.2.6/css/select.dataTables.min.css">
+        <link href="{% static 'assets0/dataTable/css/jquery.dataTables.css' %}" rel="stylesheet">
+        <!-- <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script> -->
+
+    </head>
+    <body>
+<!--         <button type="button" onclick="t()">点这里</button> -->
+        <table id="example" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Office</th>
+                    <th>Extn.</th>
+                    <th>Start date</th>
+                    <th>Salary</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Office</th>
+                    <th>Extn.</th>
+                    <th>Start date</th>
+                    <th>Salary</th>
+                </tr>
+            </tfoot>
+        </table>
+        
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/select/1.2.6/js/dataTables.select.min.js"></script>
+    <script>
+        var tabledata
+        $(document).ready(function() {
+        //function t(){
+            $.ajax({
+                type: 'GET',
+                url: 'http://127.0.0.1:8000/test/',
+                dataType: 'json',
+                success: function(data){
+                    alert("!");
+                    tabledata = data;
+                    alert("data:"+data)
+                    alert("tabledata:"+tabledata)
+                    $('#example').DataTable( {
+                    "data":tabledata,
+                    "columns": [
+                        { "data": "name" },
+                        { "data": "position" },
+                        { "data": "office" },
+                        { "data": "extn" },
+                        { "data": "start_date" },
+                        { "data": "salary" }
+                    ]
+                    /* "data":tabledata,
+                        columns: [
+                        { "data": "name" },
+                        { "data": "position" },
+                        { "data": "office" },
+                        { "data": "extn" },
+                        { "data": "start_date" },
+                        { "data": "salary" }
+                        ], */
+                    /* autoFill: {
+                        editor:  editor
+                    }, */
+                    /* select: {
+                        style:    'os',
+                        selector: 'td:first-child',
+                        blurable: true
+                    },
+                    buttons: [
+                        { extend: "create", editor: editor },
+                        { extend: "edit",   editor: editor },
+                        { extend: "remove", editor: editor }
+                    ]  */
+                    } );
+                },
+                error: function(){
+                    alert("error");
+                }
+            })
+            
+        //}
+            
+        } );
+    </script>
+    <!-- <script>
+       function test(){
+            $.ajax({
+                type: 'GET',
+                url: 'http://127.0.0.1:8000/test/',
+                dataType: 'json',
+                success: function(data){
+                    alert("!");
+                    var result = dataJson[0];
+                    var xxx = document.getElementById("example");
+                },
+                error: function(){
+                    alert("error");
+                }
+            })
+        }
+    </script> -->
+    </body>
+</html>

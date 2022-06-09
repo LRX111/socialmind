@@ -1,0 +1,1324 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Dashboard">
+    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+
+    <title>DASHGUM - Bootstrap Admin Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'backgroundfiles/assets/css/bootstrap.css' %}" rel="stylesheet">
+    <!--external css-->
+    <link href="{% static 'backgroundfiles/assets/font-awesome/css/font-awesome.css' %}" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'backgroundfiles/assets/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'backgroundfiles/assets/css/style-responsive.css' %}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="{% static 'backgroundfiles/assets/js/echarts.js' %}"></script>
+    <script src="{% static 'backgroundfiles/assets/js/jquery-3.3.1.min.js' %}"></script>
+    <script type="text/javascript" charset="utf8"
+            src="{% static 'backgroundfiles/DataTables-1.10.15/media/js/jquery.dataTables.js' %}"></script>
+    <!-- DataTables -->
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'backgroundfiles/DataTables-1.10.15/media/css/jquery.dataTables.css' %}">
+
+</head>
+
+<body>
+
+<section id="container" >
+    <!-- **********************************************************************************************************************************************************
+    TOP BAR CONTENT & NOTIFICATIONS
+    *********************************************************************************************************************************************************** -->
+    <!--header start-->
+    <header class="header black-bg">
+        <div class="sidebar-toggle-box">
+            <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+        </div>
+        <!--logo start-->
+        <a href="/bindex/" class="logo"><b>SocialMind管理员</b></a>
+        <!--logo end-->
+        <div class="nav notify-row" id="top_menu">
+            <!--  notification start -->
+            <ul class="nav top-menu">
+                <!-- settings start -->
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="/bindex/">
+                        <i class="fa fa-tasks"></i>
+                        个人中心
+                    </a>
+                </li>
+                <!-- inbox dropdown start-->
+                <li id="header_inbox_bar" class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="/bindex/">
+                        <i class="fa fa-envelope-o"></i>
+                        消息
+                        <span class="badge bg-theme">5</span>
+                    </a>
+                    <ul class="dropdown-menu extended inbox">
+                        <div class="notify-arrow notify-arrow-green"></div>
+                        <li>
+                            <p class="green">You have 5 new messages</p>
+                        </li>
+                        <li>
+                            <a href="/bindex/">
+                                <span class="photo"><img alt="avatar" src="{% static 'backgroundfiles/assets/img/ui-zac.jpg' %}"></span>
+                                <span class="subject">
+                                    <span class="from">Zac Snider</span>
+                                    <span class="time">Just now</span>
+                                    </span>
+                                <span class="message">
+                                        Hi mate, how is everything?
+                                    </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/bindex/">
+                                <span class="photo"><img alt="avatar" src="{% static 'backgroundfiles/assets/img/ui-divya.jpg' %}"></span>
+                                <span class="subject">
+                                    <span class="from">Divya Manian</span>
+                                    <span class="time">40 mins.</span>
+                                    </span>
+                                <span class="message">
+                                     Hi, I need your help with this.
+                                    </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/bindex/">
+                                <span class="photo"><img alt="avatar" src="{% static 'backgroundfiles/assets/img/ui-danro.jpg' %}"></span>
+                                <span class="subject">
+                                    <span class="from">Dan Rogers</span>
+                                    <span class="time">2 hrs.</span>
+                                    </span>
+                                <span class="message">
+                                        Love your new Dashboard.
+                                    </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/bindex/">
+                                <span class="photo"><img alt="avatar" src="{% static 'backgroundfiles/assets/img/ui-sherman.jpg' %}"></span>
+                                <span class="subject">
+                                    <span class="from">Dj Sherman</span>
+                                    <span class="time">4 hrs.</span>
+                                    </span>
+                                <span class="message">
+                                        Please, answer asap.
+                                    </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/bindex/">See all messages</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- inbox dropdown end -->
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="/bindex/">
+                        <i class="fa fa-cog"></i>
+                        设置
+                    </a>
+                    <ul class="dropdown-menu extended tasks-bar">
+                        <div class="notify-arrow notify-arrow-green"></div>
+                        <li>
+                            <p class="green">You have 4 pending tasks</p>
+                        </li>
+                        <li>
+                            <a href="/bindex/">
+                                <div class="task-info">
+                                    <div class="desc">DashGum Admin Panel</div>
+                                    <div class="percent">40%</div>
+                                </div>
+                                <div class="progress progress-striped">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                        <span class="sr-only">40% Complete (success)</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/bindex/">
+                                <div class="task-info">
+                                    <div class="desc">Database Update</div>
+                                    <div class="percent">60%</div>
+                                </div>
+                                <div class="progress progress-striped">
+                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                        <span class="sr-only">60% Complete (warning)</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/bindex/">
+                                <div class="task-info">
+                                    <div class="desc">Product Development</div>
+                                    <div class="percent">80%</div>
+                                </div>
+                                <div class="progress progress-striped">
+                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                        <span class="sr-only">80% Complete</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/bindex/">
+                                <div class="task-info">
+                                    <div class="desc">Payments Sent</div>
+                                    <div class="percent">70%</div>
+                                </div>
+                                <div class="progress progress-striped">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
+                                        <span class="sr-only">70% Complete (Important)</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="external">
+                            <a href="#">See All Tasks</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- settings end -->
+
+            </ul>
+            <!--  notification end -->
+        </div>
+        <div class="top-menu">
+            <ul class="nav pull-right top-menu">
+                <li>
+                    <form class="navbar-form navbar-right" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search here..." aria-describedby="basic-addon2" style="height: 28px;margin-top: 7px">
+                            <button type="submit" class="btn btn-default" style="height:28px;border: 1px solid #666666 !important;-webkit-border-radius: 4px;background-color: #ffd777;margin-right: 10px;margin-top: 7px;color: #666666;border-radius: 4px;">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </form>
+                </li>
+                <li><a class="logout" href="/login/">注销</a></li>
+            </ul>
+        </div>
+    </header>
+    <!--header end-->
+
+    <!-- **********************************************************************************************************************************************************
+    MAIN SIDEBAR MENU
+    *********************************************************************************************************************************************************** -->
+    <!--sidebar start-->
+    <aside>
+        <div id="sidebar"  class="nav-collapse ">
+            <!-- sidebar menu start-->
+            <ul class="sidebar-menu" id="nav-accordion">
+
+                <p class="centered"><a href="/bindex/"><img src="{% static 'backgroundfiles/assets/img/ny.jpg' %}" class="img-circle" width="60"></a></p>
+                <h5 class="centered"><a href="/bindex/" style="color: white">首页</a></h5>
+
+                <!--<li class="mt">
+                    <a class="active" href="index.html">
+                        <i class="fa fa-dashboard"></i>
+                        <span>爬虫</span>
+                    </a>
+                </li>-->
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-dashboard"></i>
+                        <span>爬虫</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="/SpiderList/">爬虫管理</a></li>
+                        <li><a  href="/SpiderMonitor/">爬虫监控</a></li>
+                        <li><a  href="/SpiderConfigure/">爬虫配置</a></li>
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-tasks"></i>
+                        <span>源数据展示模块</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a  href="/Author/">作者管理</a></li>
+                        <li><a  href="/ArticlesOfAuthor/">查看作者相关文章</a></li>
+                        <li><a href="/articlelist/">文章管理</a></li>
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;" class="active" >
+                        <i class="fa fa-desktop"></i>
+                        <span>数据清洗</span>
+                    </a>
+                    <ul class="sub">
+                        <!-- <li><a  href="/DataCleanStatistics/">清洗数据统计</a></li> -->
+                        <li><a  href="/DataCleanStrategies/">数据清洗策略配置</a></li>
+                        <li><a  href="/DataCleanLog/">数据清洗日志管理</a></li>
+                        <li><a  href="/washData/" style="color: #fff;">数据清洗</a></li>
+                        <script>
+                            $(document).ready(function(){
+                                $("li:not([class])>a:not(a:contains('数据清洗'))").hover(function(){
+                                    $("a:contains('数据清洗')").removeAttr("style")
+                                });
+                            });
+                        </script>
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="/topics/" >
+                        <i class="fa fa-book"></i>
+                        <span>主题管理</span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;" >
+                        <i class="fa fa-cogs"></i>
+                        <span>舆情对象管理</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a  href="/AddEventObject/">新增舆情对象</a></li>
+                        <li><a  href="/CreateEventObject/">舆情对象自动生成</a></li>
+                        <li><a  href="/ShowEventObject/">舆情对象展示</a></li>
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;" >
+                        <i class="fa fa-tasks"></i>
+                        <span>语义工具集</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a  href="/semanticsTools/">新增语义工具</a></li>
+                        <li><a  href="/semanticsToolkits/">新增工具包</a></li>
+                        <li><a  href="/ShowToolkits/">工具包展示</a></li>
+                    </ul>
+                </li>
+                <!--<li class="sub-menu">
+                    <a href="javascript:;" >
+                        <i class="fa fa-th"></i>
+                        <span>系统操作管理</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a  href="basic_table.html">系统用户评论管理</a></li>
+                        <li><a  href="responsive_table.html">系统用户操作管理</a></li>
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;" >
+                        <i class=" fa fa-bar-chart-o"></i>
+                        <span>用户管理</span>
+                    </a>
+                </li>-->
+                <li class="sub-menu">
+                    <a href="/usrCommentsSelect/" >
+                        <i class="fa fa-th"></i>
+                        <span>用户留言管理</span>
+                    </a>
+
+                </li>
+                <li class="sub-menu">
+                    <a href="/AssignAuthorities/" >
+                        <i class=" fa fa-bar-chart-o"></i>
+                        <span>权限管理</span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a href="/usrManagement/" >                         <i class=" fa fa-bar-chart-o"></i>                         <span>用户管理</span>                     </a>
+
+                </li>
+                <li class="sub-menu">
+                    <a href="/operateDiary/" >
+                        <i class=" fa fa-bar-chart-o"></i>
+                        <span>日志管理</span>
+                    </a>
+                    <!--<ul class="sub">
+                        <li><a  href="morris.html">操作日志</a></li>
+                    </ul>-->
+                </li>
+
+            </ul>
+            <!-- sidebar menu end-->
+        </div>
+    </aside>
+    <!--sidebar end-->
+
+    <!-- **********************************************************************************************************************************************************
+    MAIN CONTENT
+    *********************************************************************************************************************************************************** -->
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper site-min-height">
+            <h3><i class="fa fa-angle-right"></i> 数据清洗</h3>
+            <div class="row mt">
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            选择爬取数据
+                            <span style="float: right;font-size: 12px;margin-left: 10px;margin-top: 3px">entries</span>
+                            <select class="form-control" style="float: right;width: 60px;height: 25px;font-size: 12px">
+                                <option>10</option>
+                                <option>25</option>
+                                <option>50</option>
+                                <option>100</option>
+                            </select>
+                            <span style="float: right;font-size: 12px;margin-right: 10px;margin-top: 3px">Show</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label for="inputEmail3" class="col-sm-2 control-label">爬虫名称</label>
+                                            <div class="col-sm-10">
+                                                <select id="spidername" class="form-control">
+                                                    <option>10</option>
+                                                    <option>25</option>
+                                                    <option>50</option>
+                                                    <option>100</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputEmail3" class="col-sm-2 control-label">网站名称</label>
+                                            <div class="col-sm-10">
+                                                <form id="sitenameform">
+                                                    {% csrf_token %}
+                                                    <select id="sitename" name="sitename" class="form-control" onchange="sitenamech()">
+                                                        <option value="">请选择要清洗的网站</option>
+                                                        <option value="blog163">网易博客</option>
+                                                        <option value="douban_group">豆瓣小组</option>
+                                                        <option value="kdnet">凯迪网</option>
+                                                        <option value="newsbbs">新华网-发展论坛</option>
+                                                        <option value="peoplebbs">人民网-强国论坛</option>
+                                                        <option value="tianyabbs">天涯论坛</option>
+                                                        <option value="xici">西祠胡同</option>
+                                                        <option value="mop">猫扑</option>
+                                                        <option value="people">人民网</option>
+                                                        <option value="sanqin">三秦网</option>
+                                                        <option value="sinanews">新浪新闻</option>
+                                                        <option value="xinhua">新华网</option>
+                                                        <option value="xinwen110">中国社会新闻网</option>
+                                                        <option value="moe">教育部网</option>
+                                                        <option value="bingmayongbbs">兵马俑BBS</option>
+                                                        <option value="batong">八通社区</option>
+                                                        <option value="huashangbbs">华商论坛</option>
+                                                        <option value="pku">北大未名</option>
+                                                        <option value="twwtn">中国科技网</option>
+                                                        <option value="blog163">科技世界网</option>
+                                                        <option value="dongfang">东方网</option>
+                                                        <option value="beiqing">北青网</option>
+                                                        <option value="tnews">腾讯网</option>
+                                                        <option value="jingbao">京报网</option>
+                                                        <option value="huashang">华商网</option>
+                                                        <option value="sxdaily">陕西日报</option>
+                                                        <option value="ifeng">凤凰网</option>
+                                                        <option value="sohu">搜狐新闻</option>
+                                                        <option value="wy163">网易新闻</option>
+                                                        <option value="gmw">光明日报</option>
+                                                        <option value="blogchina">博客中国</option>
+                                                        <option value="weibo">微博</option>
+                                                        <option value="zhihu">知乎</option>
+                                                    </select>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputEmail3" class="col-sm-2 control-label">爬取时间</label>
+                                            <div class="col-sm-10">
+                                                <label for="dateinput1" class="control-label">从</label>
+                                                <input id="foretime" type="datetime-local" class="form-control" style="display: inline-block;width: 45%">
+                                                <label for="dateinput2" class="control-label">到</label>
+                                                <input id="backtime" type="datetime-local" class="form-control" style="display: inline-block;width: 45%">
+                                            </div>
+                                        </div>
+                                        <!-- <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <button type="submit" class="btn btn-default">Sign in</button>
+                                            </div>
+                                        </div> -->
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label for="inputPassword3" class="col-sm-2 control-label">数据源表</label>
+                                <div class="col-sm-10">
+                                    <div id="datatablenames" class="list-group">
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                var flgifsecond = 0
+                                function sitenamech(){
+                                    //alert($("#sitename").val())
+                                    $.ajax({
+                                        url: '/washData/xuanzewangzhan/',
+                                        type: 'POST',
+                                        dataType: 'json',
+                                        /* data: $('#sitenameform').serialize(), */
+                                        data: $('#sitename').val(),
+                                        success: function(data){
+                                            datas =data.data
+                                            $("#datatablenames").empty();
+                                            if(flgifsecond == 0){
+                                                for(i in datas[0]){
+                                                    $("#datatablenames").append('<button onclick="displaytable(this)" style="width: 100%" type="button" class="list-group-item">'+i+'</button>');
+                                                }
+                                            }
+                                            else if(flgifsecond == 1){
+                                                for(i in datas[0]){
+                                                    $("#datatablenames").append('<button onclick="secondclick(this)" style="width: 100%" type="button" class="list-group-item">'+i+'</button>');
+                                                }
+                                            }
+                                            flgifsecond = 1
+                                        },
+                                        error: function(data){
+                                            alert("数据获取失败");
+                                        }
+                                    })
+                                }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            字段统计
+                            <span style="float: right;font-size: 12px;margin-left: 10px;margin-top: 3px">entries</span>
+                            <select class="form-control" style="float: right;width: 60px;height: 25px;font-size: 12px">
+                                <option>10</option>
+                                <option>25</option>
+                                <option>50</option>
+                                <option>100</option>
+                            </select>
+                            <span style="float: right;font-size: 12px;margin-right: 10px;margin-top: 3px">Show</span>
+                        </div>
+                        <div class="panel-body">
+                            <div id="mypiechart" style="height:359px;width:100%;"></div>
+                            <script>
+                                var myChart = echarts.init(document.getElementById('mypiechart'));
+                                option = {
+                                    title : {
+                                        text: '字段出现频数占比图',
+                                        subtext: '仅包含出现频数前十的字段',
+                                        x:'center'
+                                    },
+                                    tooltip : {
+                                        trigger: 'item',
+                                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                                    },
+                                    legend: {
+                                        x : 'center',
+                                        y : 'bottom',
+                                        data:['Firefox 1.0','IE Mobile','PSP browser','Win 95+','Opera 9.5','Internet','Win','All others','Win XP SP2+','PHP']
+                                    },
+                                    toolbox: {
+                                        show : true,
+                                        feature : {
+                                            mark : {show: true},
+                                            dataView : {show: true, readOnly: false},
+                                            magicType : {
+                                                show: true,
+                                                type: ['pie', 'funnel']
+                                            },
+                                            restore : {show: true},
+                                            saveAsImage : {show: true}
+                                        }
+                                    },
+                                    calculable : true,
+                                    series : [
+                                        {
+                                            name:'字段',
+                                            type:'pie',
+                                            radius : [30, 110],
+                                            //center : ['75%', '50%'],
+                                            //roseType : 'area',
+                                            data:[
+                                                {value:10, name:'Firefox 1.0'},
+                                                {value:5, name:'IE Mobile'},
+                                                {value:15, name:'PSP browser'},
+                                                {value:25, name:'Win 95+'},
+                                                {value:20, name:'Opera 9.5'},
+                                                {value:35, name:'Internet'},
+                                                {value:30, name:'Win'},
+                                                {value:40, name:'All others'},
+                                                {value:17, name:'Win XP SP2+'},
+                                                {value:9, name:'PHP'},
+                                            ]
+                                        }
+                                    ]
+                                };
+                                //myChart.setOption(option);
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <label id="tableshowname">数据源表</label>
+                            <!-- <button onclick="showStack()">查看撤回栈</button> -->
+                            <button id="rollback" onclick="rollback(this)" class="btn btn-info btn-xs" style="display: none;margin-right: 10px;float: right"><span class="glyphicon glyphicon-circle-arrow-left"></span> 撤回</button>
+                        </div>
+                        <div id="beginwash" style="display: none;color: #333;background-color: #f5f5f5;border-color: #ddd;padding: 10px 15px;border-bottom: 1px solid transparent;border-top-left-radius: 3px;border-top-right-radius: 3px;">
+                            <div class="form-inline">
+                                <label id="beginwashfirstid"></label>
+                                <table border="1" style="margin-bottom: -8px;margin-top: 0px;margin-left: 5px;margin-right: 5px; width: 1px;height: 25px;display: inline-block"><tr><td></td></tr></table>
+                                <label>数据清洗策略：</label>
+                                <select id="celuexuanze" class="form-control">
+                                    <option value="">请选择清洗策略：</option>
+                                    <option value="替换">替换</option>
+                                    <option value="缺失值">缺失值</option>
+                                    <!-- <option value="一致性">一致性 </option> -->
+                                    <option value="字符串错误">字符串错误 </option>
+                                    <option value="统一时间格式">统一时间格式 </option>
+                                    <!-- <option value="合并两列">合并两列  </option> -->
+                                    <!-- <option value="拆分为多列">拆分为多列 </option> -->
+                                </select>
+                                <script>
+                                    $(document).ready(function(){
+                                        //$("#test option:selected").val()
+                                        $("#celuexuanze").change(function(){
+                                            if('缺失值' == $("#celuexuanze option:selected").val()){
+                                                for(i=1;i<=7;i++){
+                                                    $("#formg"+i).hide()
+                                                }
+                                                $("#formg1").show()
+                                            }
+                                            else if('一致性' == $("#celuexuanze option:selected").val()){
+                                                for(i=1;i<=7;i++){
+                                                    $("#formg"+i).hide()
+                                                }
+                                                $("#formg2").show()
+                                            }
+                                            else if('字符串错误' == $("#celuexuanze option:selected").val()){
+                                                for(i=1;i<=7;i++){
+                                                    $("#formg"+i).hide()
+                                                }
+                                                $("#formg3").show()
+                                            }
+                                            else if('统一时间格式' == $("#celuexuanze option:selected").val()){
+                                                for(i=1;i<=7;i++){
+                                                    $("#formg"+i).hide()
+                                                }
+                                                $("#formg4").show()
+                                            }
+                                            else if('合并两列' == $("#celuexuanze option:selected").val()){
+                                                for(i=1;i<=7;i++){
+                                                    $("#formg"+i).hide()
+                                                }
+                                                $("#formg5").show()
+                                            }
+                                            else if('拆分为多列' == $("#celuexuanze option:selected").val()){
+                                                for(i=1;i<=7;i++){
+                                                    $("#formg"+i).hide()
+                                                }
+                                                $("#formg6").show()
+                                            }
+                                            else if("替换" == $("#celuexuanze option:selected").val()){
+                                                for(i=1;i<=7;i++){
+                                                    $("#formg"+i).hide()
+                                                }
+                                                $("#formg7").show()
+                                            }
+                                        });
+                                    });
+                                </script>
+                                <div id="formg7" class="form-group" style="display: none">
+                                    <form style="display: none"></form>
+                                    <form id="formtihuan" method="post" action="">
+                                        {% csrf_token %}
+                                        <input name="formtype" type="text" style="display: none" value="tihuan">
+                                        <label for="tihuanval1">替换</label>
+                                        <input id="tihuanval1" type="text" name="tihuanval1" placeholder="该列被替换的值" class="form-control">
+                                        <label for="tihuanval2">替换为</label>
+                                        <input id="tihuanval2" type="text" name="tihuanval2" placeholder="替换值       " class="form-control">
+                                        <button onclick="washsumit('formtihuan',this)" type="button" class="btn btn-success btn-sm">执行</button>
+                                    </form>
+                                </div>
+                                <div id="formg1" class="form-group" style="display: none">
+                                    <form style="display: none"></form>
+                                    <form id="formqueshizhi" method="POST" action="">
+                                        {% csrf_token %}
+                                        <input name="formtype" type="text" style="display: none" value="queshizhi">
+                                        <label for="exampleInputName2">缺失值</label>
+                                        <select id="queshizhisel" name="tianzhongzhi" class="form-control" >
+                                            <option value="">选择填充值：</option>
+                                            <option value="null">填充null</option>
+                                            <option value="avg">填充均值 </option>
+                                            <option value="max">填充最大值 </option>
+                                            <option value="min">填充最小值 </option>
+                                            <option value="mid">填充中值  </option>
+                                            <option value="frequent">填充最频繁值 </option>
+                                            <option value="inputval">填充指定值</option>
+                                            <option value="delthiscol">删除该列 </option>
+                                        </select>
+                                        <input id="addval" name="inputval" value="" placeholder="填充指定值" class="form-control" style="display: none">
+                                        <script>
+                                            $(document).ready(function(){
+                                                $("#queshizhisel").change(function(){
+                                                    /* alert($("#queshizhisel").get(0).selectedIndex); */
+                                                    if('' == $("#queshizhisel option:selected").val()){
+                                                        $("#geiniyigeid").removeAttr("onclick")
+                                                    }
+                                                    else{
+                                                        $("#geiniyigeid").removeAttr("onclick")
+                                                        $("#geiniyigeid").attr("onclick","washsumit('formqueshizhi',this)");
+                                                        if(7 == $("#queshizhisel").get(0).selectedIndex){
+                                                            $("#addval").show()
+                                                        }
+                                                        else if('' == $("#queshizhisel option:selected").val()){
+                                                            $("#geiniyigeid").removeAttr("onclick")
+                                                        }
+                                                        else{
+                                                            $("#addval").hide()
+                                                        }
+                                                    }
+                                                });
+                                            });
+                                        </script>
+                                        <button id="geiniyigeid" type="button" class="btn btn-success btn-sm">执行</button>
+                                    </form>
+                                </div>
+                                <div id="formg2" class="form-group" style="display: none">
+                                    <label for="exampleInputName2">一致性</label>
+                                    <select id="queshizhisel" class="form-control" >
+                                        <option>删除重复行</option>
+                                        <option>去除不合理值 </option>
+                                    </select>
+                                </div>
+                                <div id="formg3" class="form-group" style="display: none">
+                                    <form id="formzifuchuangeshi">
+                                    <input name="formtype" type="text" style="display: none" value="zifuchuangeshi">
+                                    <label for="exampleInputName2">字符串错误</label>
+                                    <select id="zifuchuansel" name="zifuchuansel" class="form-control" >
+                                        <option value="">选择字符串格式：</option>
+                                        <option value="delkongge">删除字符串左右的空格</option>
+                                        <option value="exchangekongge">将字符串中间的空格改为& nbsp</option>
+                                        <!-- <option>将指定子字符串修改为某特定字符串</option> -->
+                                    </select>
+                                    <input id="addzhidingzizi" placeholder="指定子字符串" class="form-control" style="display: none">
+                                    <input id="addtedingzi" placeholder="修改为特定字符串" class="form-control" style="display: none">
+                                    <script>
+                                        $(document).ready(function(){
+                                            $("#zifuchuansel").change(function(){
+                                                /* alert($("#queshizhisel").get(0).selectedIndex); */
+                                                if('' == $("#zifuchuansel option:selected").val()){
+                                                        $("#geiniyigeid3").removeAttr("onclick")
+                                                }
+                                                else{
+                                                    $("#geiniyigeid3").removeAttr("onclick")
+                                                    $("#geiniyigeid3").attr("onclick","washsumit('formzifuchuangeshi',this)");
+                                                }
+                                                if(3 == $("#zifuchuansel").get(0).selectedIndex){
+                                                    $("#addzhidingzizi").show()
+                                                    $("#addtedingzi").show()
+                                                }
+                                                else{
+                                                    $("#addzhidingzizi").hide()
+                                                    $("#addtedingzi").hide()
+                                                }
+                                            });
+                                        });
+                                    </script>
+                                    <button id="geiniyigeid3" type="button" class="btn btn-success btn-sm">执行</button>
+                                    </form>
+                                </div>
+                                <div id="formg4" class="form-group" style="display: none">
+                                    <form style="display: none"></form>
+                                    <form id="formshijiangeshi" method="post" action="">
+                                        <input name="formtype" type="text" style="display: none" value="shijiangeshi">
+                                        <label for="shijiangeshisel">统一时间格式</label>
+                                        <select id="shijiangeshisel" name="shijiangeshisel" class="form-control" >
+                                            <option value="">请选择时间字段格式：</option>
+                                            <option value="/">YYYY/MM/DD</option>
+                                            <option value="-">YYYY-MM-DD</option>
+                                            <option value=".">YYYY.MM.DD</option>
+                                            <option value="1:">xx:xx</option>
+                                            <option value="2:">xx:xx:xx</option>
+                                            <option value="/2:">YYYY/MM/DD xx:xx:xx</option>
+                                            <option value="-2:">YYYY-MM-DD xx:xx:xx</option>
+                                            <option value=".2:">YYYY.MM.DD xx:xx:xx</option>
+                                            <option value="/1:">YYYY/MM/DD xx:xx</option>
+                                            <option value="-1:">YYYY-MM-DD xx:xx</option>
+                                            <option value=".1:">YYYY.MM.DD xx:xx</option>
+                                        </select>
+                                        <script>
+                                            $(document).ready(function(){
+                                                $("#shijiangeshisel").change(function(){
+                                                    /* alert($("#queshizhisel").get(0).selectedIndex); */
+                                                    if('' == $("#shijiangeshisel option:selected").val()){
+                                                        $("#geiniyigeid2").removeAttr("onclick")
+                                                    }
+                                                    else{
+                                                        $("#geiniyigeid2").removeAttr("onclick")
+                                                        $("#geiniyigeid2").attr("onclick","washsumit('formshijiangeshi',this)");
+                                                    }
+                                                });
+                                            });
+                                        </script>
+                                        <button id="geiniyigeid2" type="button" class="btn btn-success btn-sm">执行</button>
+                                    </form>
+                                </div>
+                                <div id="formg5" class="form-group" style="display: none">
+                                    <label for="exampleInputName2">合并两列</label>
+                                    <select id="queshizhisel" class="form-control" >
+                                        <option>重复项第一列覆盖第二列</option>
+                                        <option>重复项第二列覆盖第一列 </option>
+                                        <option>重复项叠加 </option>
+                                    </select>
+                                </div>
+                                <div id="formg6" class="form-group" style="display: none">
+                                    <label for="exampleInputName2">拆分为多列</label>
+                                    <select id="queshizhisel" class="form-control" >
+                                        <option>按数据类型拆分</option>
+                                        <option>按自定义阈值拆分 </option>
+                                        <option>按包含不同关键字拆分 </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <table id="yuanshujubiao" class="display" style="display: none">
+                                <thead>
+                                <tr id="theadtr"></tr>
+                                </thead>
+                                <tbody id="tbody">
+                                </tbody>
+                                <tfoot>
+                                <tr id="tfoottr"></tr>
+                                </tfoot>
+                            </table>
+                            <!-- <table id="tableshow" class="table table-bordered" style="display: none;margin: 0%">
+                                <thead><tr><th>时间</th><th>网站</th><th>网址</th><th>错误的item</th><th>错误详情</th></tr></thead>
+                                <tr><td>Gecko</td><td>Firefox 1.0</td><td>Win 98+ / OSX.2+</td><td>Win 95+</td><td>1.7</td></tr>
+                                <tr><td>Misc</td><td>IE Mobile</td><td>Win 95+</td><td>Windows Mobile 6</td><td>-</td></tr>
+                                <tr><td>Misc</td><td>PSP browser</td><td>Win</td><td>PHP</td><td>-</td></tr>
+                                <tr><td>Other browsers</td><td>Win 95+</td><td>All others</td><td>-</td><td>-</td></tr>
+                                <tr><td>Presto</td><td>Opera 9.5</td><td>Win 88+ / OSX.3+</td><td>Win 95+</td><td>-</td></tr>
+                                <tr><td>Trident</td><td>Internet</td><td>Win 95+</td><td>Win 95+</td><td>4</td></tr>
+                                <tr><td>Trident</td><td>Internet</td><td>Win 95+</td><td>Win 95+</td><td>5</td></tr>
+                                <tr><td>Trident</td><td>Internet</td><td>Win 95+</td><td>Win 95+</td><td>5.5</td></tr>
+                                <tr><td>Trident</td><td>Internet</td><td>Win 95+</td><td>Win 95+</td><td>6</td></tr>
+                                <tr><td>Trident</td><td>Internet</td><td>Win XP SP2+</td><td>Win 95+</td><td>7</td></tr>
+                            </table> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section><!--/wrapper -->
+    </section><!-- /MAIN CONTENT -->
+
+    <!--main content end-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">New message</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="exampleModalform">
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button onclick="zhugexiugai('exampleModalform')" type="button" class="btn btn-primary">确定提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--footer start-->
+    <footer class="site-footer">
+        <div class="text-center">
+            2018 - <a href="http://www.xjtu.edu.cn" target="_blank" title="西安交通大学">西安交通大学</a> - <a href="http://www.xjtu.edu.cn" title="social mind" target="_blank">social mind舆情分析平台</a>
+            <a href="#" class="go-top">
+                <i class="fa fa-angle-up"></i>
+            </a>
+        </div>
+    </footer>
+    <!--footer end-->
+</section>
+
+<!-- js placed at the end of the document so the pages load faster -->
+<!-- <script src="{% static 'backgroundfiles/assets/js/jquery.js' %}"></script> -->
+<script src="{% static 'backgroundfiles/assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'backgroundfiles/assets/js/jquery-ui-1.9.2.custom.min.js' %}"></script>
+<script src="{% static 'backgroundfiles/assets/js/jquery.ui.touch-punch.min.js' %}"></script>
+<script class="include" type="text/javascript" src="{% static 'backgroundfiles/assets/js/jquery.dcjqaccordion.2.7.js' %}"></script>
+<script src="{% static 'backgroundfiles/assets/js/jquery.scrollTo.min.js' %}"></script>
+<script src="{% static 'backgroundfiles/assets/js/jquery.nicescroll.js' %}" type="text/javascript"></script>
+
+
+<!--common script for all pages-->
+<script src="{% static 'backgroundfiles/assets/js/common-scripts.js' %}"></script>
+
+<!--script for this page-->
+
+<script>
+    var table
+    var pagenum = 0
+    var columnname = ""
+    var chehuiStack = 0
+    var adminname = "LRX"
+    function showStack(){
+        alert(chehuiStack)
+    }
+    function fenyeajax(){
+        var sitename = $('#sitename').val()
+        var tablename = $("#tableshowname").html()
+        $.ajax({
+            url: '/washData/DIYfenye/',
+            type: 'POST',
+            dataType: 'json',
+            data: '{"sitename": "'+sitename+'", "tablename": "'+tablename+'",'+'"page": "'+(pagenum-2)+'", "len": "'+table.page.len()+'"}',
+            success: function(data){
+                //alert("Yes!")
+                table.destroy();
+                $("#theadtr").empty()
+                $("#tfoottr").empty()
+                $("#tbody").empty()
+                datas = []
+                datas = data.data
+                var column = []
+                console.log(datas[0])
+                var j = 0
+                for(var i in datas[0]){
+
+                    var dic = {'data':i}
+                    column.push(dic)
+                    $("#theadtr").append("<th>"+i+"</th>")
+                    $("#tfoottr").append("<th>"+i+"</th>")
+                    console.log(i)
+                }
+                datas.splice(0,1)
+                options = {
+                    "order": [0, "asc"],
+                    "bAutoWidth": false,
+                    "pagingType": "full",
+                    "displayStart": 20,
+                    "aLengthMenu": [[10,30,-1], [10, 30, "全部"]],
+                    "language": {
+                        "lengthMenu": " 每页_MENU_条记录",
+                        "zeroRecords": "没有找到记录",
+                        "info": "第"+(pagenum+1)+"页",
+                        "infoEmpty": "无记录",
+                        "infoFiltered": "(从_MAX_条记录过滤)",
+                        "oPaginate":{
+                            "sFirst": "首页",
+                            "sPrevious": "上页",
+                            "sNext": "下页",
+                            "sLast": "末页"
+                        },
+                        "sSearch": "搜索: ",
+                        "sLoadingRecords": "正在加载数据-请等待...",
+                    },
+                    scrollX:true,
+                    destroy:true,
+                    processing: true,
+                    data: datas,
+                    columns:column
+                };
+                //alert("123")
+                table = $('#yuanshujubiao').DataTable(options);
+                //table.page(pagenum+1)
+                //alert("456")
+            },
+            error: function(data){
+                alert("数据获取失败");
+            }
+        })/* ajax */
+    }
+    $(function(){
+        $('#yuanshujubiao tbody').on('click','td', function () {clickcell(this)} );
+        $("#yuanshujubiao").on('page.dt', function () {
+            //alert(table.page())//返回翻页完的页码，从0开始,仅第一次有效
+            //alert(table.page.len())//返回每页多少条
+            if(pagenum <=1){
+                if(Number(table.page()) == 3){//ajax,并置相对起始页为3
+                    pagenum = Number(table.page())
+                    //alert(pagenum)
+                    fenyeajax()
+                }
+                else if(Number(table.page()) == 4){}//先不管
+                else if(Number(table.page()) <= 2){
+                    pagenum = Number(table.page())
+                    //alert(pagenum)
+                }
+
+            }
+            else if(pagenum == 2){
+                if(Number(table.page()) == 3){//ajax,并置相对起始页为3
+                    pagenum = Number(table.page())
+                    //alert(pagenum)
+                    fenyeajax()
+                }
+                else if(Number(table.page()) == 4){}//先不管
+                else if(Number(table.page()) <= 1){
+                    pagenum = Number(table.page())
+                    //alert(pagenum)
+                }
+            }
+            else if(pagenum >= 3){//ajax,并置相对起始页为3
+                if(Number(table.page()) == 1){//ajax,并置相对起始页为3
+                    pagenum = pagenum-1
+                    //alert("传给服务器的是第"+(pagenum-2)+"页")
+                    fenyeajax()
+                }
+                if(Number(table.page()) == 3){//ajax,并置相对起始页为3
+                    pagenum = pagenum+1
+                    //alert(pagenum)
+                    fenyeajax()
+                }
+                if(Number(table.page()) == 0){}//ajax,并置相对起始页为3
+                if(Number(table.page()) == 4){}//ajax,并置相对起始页为3
+            }
+        })
+    })/* $(function() */
+    //custom select box
+    function secondclick(btnthis){
+        table.destroy();
+        displaytable(btnthis)
+    }
+    function displaytable(btnthis){
+        $("#tableshowname").empty()
+        $("#tableshowname").append($(btnthis).html())
+        var sitename = $('#sitename').val()
+        var tablename = $(btnthis).html()
+        $("#theadtr").empty()
+        $("#tfoottr").empty()
+        $("#tbody").empty()
+        $.ajax({
+            url: '/washData/yuanshujubiao/',
+            type: 'POST',
+            dataType: 'json',
+            data: '{"sitename": "'+sitename+'", "tablename": "'+tablename+'"}',
+            success: function(data){
+                //console.log(data)
+                //var tbody = document.getElementById('tbody')
+                //$('#yuanshujubiao').empty();
+                datas = data.data
+                console.log(datas)
+                // console.log(typeof(datas))
+                var column = []
+                console.log(datas[0])
+                var j = 0
+                for(var i in datas[0]){
+
+                    var dic = {'data':i}
+                    column.push(dic)
+                    $("#theadtr").append("<th>"+i+"</th>")
+                    $("#tfoottr").append("<th>"+i+"</th>")
+                    console.log(i)
+                }
+                datas.splice(0,1)
+                //column.push({mData: "fewsf"})
+                // for(var i in column){
+                //     console.log(column[i])
+                // }
+                // alert([column[1]])
+                // console.log(column)
+                options = {
+                    "order": [0, "asc"],
+                    "bAutoWidth": false,
+                    "pagingType": "full",
+                    "aLengthMenu": [[10,30,-1], [10, 30, "全部"]],
+                    "language": {
+                        "lengthMenu": " 每页_MENU_条记录",
+                        "zeroRecords": "没有找到记录",
+                        "info": "第_PAGE_页",/* 第_PAGE_页(共_PAGES_页) */
+                        "infoEmpty": "无记录",
+                        "infoFiltered": "(从_MAX_条记录过滤)",
+                        "oPaginate":{
+                            "sFirst": "首页",
+                            "sPrevious": "上页",
+                            "sNext": "下页",
+                            "sLast": "末页"
+                        },
+                        "sSearch": "搜索: ",
+                        "sLoadingRecords": "正在加载数据-请等待...",
+                    },
+                    scrollX:true,
+                    autoFill: true,
+                    destroy:true,
+                    processing: true,
+                    data: datas,
+                    columns:column,
+                    //  [
+                    //     { data: 'tableName' },
+                    //     { data: 'schemaName' },
+                    //     { data: 'webSite' },
+                    //     { data: 'webSiteType' },
+                    //     { data: 'dataVolum' }
+                    // ]
+                };
+                console.log("123")
+                table = $('#yuanshujubiao').DataTable(options);
+                //table.destroy();
+                //options={}
+                console.log("3456")
+                $("#datatablenames button").removeAttr("onclick")
+                $("#datatablenames button").attr("onclick","secondclick(this);");
+
+                /* $(".add #tbody tr td").on('click',clickcell()) */
+                /* $('#yuanshujubiao_paginate').on('click', function niming() { */
+                //alert(table.page()) /* 从0算当前页数 */
+                //alert(table.page.len()) /* 每页多少条数据，-1代表全部 */
+                /* $.ajax({
+                    url: '/washData/DIYfenye/',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: '{"sitename": "'+sitename+'", "tablename": "'+tablename+'",'+'"page": "'+table.page()+'", "len": "'+table.page.len()+'"}',
+                    success: function(data){
+                        alert("Yes!")
+                        table.destroy();
+                        $("#theadtr").empty()
+                        $("#tbody").empty()
+                        datas = []
+                        datas = data.data
+                        var column = []
+                        console.log(datas[0])
+                        var j = 0
+                        for(var i in datas[0]){
+
+                            var dic = {'data':i}
+                            column.push(dic)
+                            $("#theadtr").append("<th>"+i+"</th>")
+                            console.log(i)
+                        }
+                        datas.splice(0,1)
+                        alert("123")
+                        table = $('#yuanshujubiao').DataTable(options);
+                        alert("456")
+                        $('#yuanshujubiao_paginate').unbind('click')
+                        $('#yuanshujubiao_paginate').on('click', niming())
+                    },
+                    error: function(data){
+                        alert("数据获取失败");
+                    } */
+                //})/* ajax */
+                //})/* $('#yuanshujubiao_paginate').on('click', function() */
+            },
+            error: function(data){
+                alert("数据获取失败");
+            }
+        });
+        $("#yuanshujubiao").show()
+        // $('#yuanshujubiao').dataTable().fnClearTable();
+        // $('#yuanshujubiao').dataTable().fnDestroy()
+    }
+    function clickcell(thiscell){
+        var index = $(thiscell).parents("tr").find("td").index($(thiscell));//获取当前td在tr种得索引,起始为0
+        $("#exampleModalform").empty()
+        /* $("#exampleModalform").append('{% csrf_token %}') */
+        $("#exampleModalform").append('<input name="formtype" type="text" style="display: none" value="updatearow">')
+        $(thiscell).parent().parent().parent().find('thead tr').children('th').each(function(j){  // 遍历 tr 的各个 td
+            $("#exampleModalform").append('<div class="form-group"><label for="recipient-name" class="control-label">'+$(this).text()+':</label><input id="'+$(thiscell).parent().children('td').eq(j).text()+'" name="'+$(this).text()+'" type="text" class="form-control" value="'+$(thiscell).parent().children('td').eq(j).text()+'"></div>')
+        });
+        $('#exampleModal').modal()
+        //alert($(thiscell).text());
+        //alert($(thiscell).parent().parent().parent().find('thead tr th:eq('+index+')').text())
+        celltext = $(thiscell).text()
+        columnname = $(thiscell).parent().parent().parent().find('thead tr th:eq('+index+')').text()
+        var sitename = $('#sitename').val()
+        var tablename = $("#tableshowname").html()
+        $.ajax({
+            url: '/washData/tongji/',
+            type: 'POST',
+            dataType: 'json',
+            data: '{"sitename": "'+sitename+'", "tablename": "'+tablename+'",'+'"celltext": "'+1+'", "columnname": "'+columnname+'"}',
+            success: function(data){
+                //alert("yes")
+                datas = data.data
+                /* for(i in datas){
+                    alert(datas[i].value)
+                    alert(datas[i].name)
+                    break
+                } */
+                huahua(datas,columnname)
+                $("#beginwashfirstid").empty()
+                $("#beginwashfirstid").append("当前选择的列为："+columnname)
+                $("#beginwash").show()
+            },
+            error: function(data){
+
+            }
+        })
+
+        /* for (i=0;i<table.column(4).data().length;i++){
+            alert(i)
+        } */
+        //a = table.columns(7).data().eq( 0 )
+        /* b=JSON.stringify(a)
+        for (x in b)
+        alert(b[x]) */
+        /* clock = 0
+        for( i in a){
+            clock++
+            if(clock >= 50){
+                break
+            }
+            alert(a[i])
+        } */
+    }
+    function washsumit(formid,thisbtn){
+        var sitename = $('#sitename').val()
+        var tablename = $("#tableshowname").html()
+        $(thisbtn).hide();
+        $.ajax({
+            type: "POST",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "/washData/washaction/" ,//url
+            data: $('#'+formid).serialize()+"&columnname="+columnname+"&sitename="+sitename+"&tablename="+tablename+"&chehuiStack="+chehuiStack+"&adminname="+adminname,
+            success: function (data) {
+                if(data.data == 'success'){
+                    if(chehuiStack < 0) chehuiStack = 0;
+                    chehuiStack = chehuiStack + 1
+                    alert("修改成功")
+                    $("#rollback").show()
+                    $(thisbtn).show();
+                }
+                else if(data.data == 'error'){
+                    alert("修改失败")
+                }
+            },
+            error : function(data) {
+                alert('数据获取失败！')
+            }
+        });
+    }
+    function rollback(thisbtn){
+        var sitename = $('#sitename').val()
+        var tablename = $("#tableshowname").html()
+        $(thisbtn).hide();
+        $.ajax({
+            type: "POST",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "/washData/rollback/" ,//url
+            data: '{"sitename": "'+sitename+'", "tablename": "'+tablename+'",'+'"chehuiStack": "'+(chehuiStack-1)+'", "adminname": "'+adminname+'"}',
+            success: function (data) {
+                chehuiStack = chehuiStack-1
+                alert("撤回成功")
+                if(chehuiStack>0){
+                    $("#rollback").show()
+                }
+            },
+            error : function(data) {
+                alert('数据获取失败！')
+            }
+        });
+    }
+    function huahua(getdatas,columnname){
+        /*var tdindex = $(this).index()+1;
+        $("#tableshow tr td").removeClass('success');
+        $("#tableshow tr th").removeClass('success');
+        $("#tableshow tr td:nth-child("+tdindex+")").addClass('success');
+        $("#tableshow tr th:nth-child("+tdindex+")").addClass('success'); */
+        namesinlegend = []
+        for(i in getdatas){
+            /* alert(getdatas[i].value)
+            alert(getdatas[i].name) */
+            namesinlegend.push(getdatas[i].name)
+        }
+        option = {
+            title : {
+                text: columnname+'列的字段出现频数占比图',
+                subtext: '仅包含出现频数前十的字段',
+                x:'center'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{b} :<br/> {c} ({d}%)"
+            },
+            legend: {
+                x : 'center',
+                y : 'bottom',
+                data:namesinlegend
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    mark : {show: true},
+                    dataView : {show: true, readOnly: false},
+                    magicType : {
+                        show: true,
+                        type: ['pie', 'funnel']
+                    },
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            calculable : true,
+            series : [
+                {
+                    //name:'字段',
+                    type:'pie',
+                    radius : [30, 110],
+                    //center : ['75%', '50%'],
+                    //roseType : 'area',
+                    data:getdatas
+                }
+            ]
+        };
+        var myChart = echarts.init(document.getElementById('mypiechart'));
+        myChart.clear();
+        myChart.setOption(option);
+    }
+    function zhugexiugai(formid){
+        var sitename = $('#sitename').val()
+        var tablename = $("#tableshowname").html()
+        var bianhuadestr = "formtype=updatearow"
+        var flgt = 0
+        $("#"+formid).children("div").each(function(i){
+            if ($(this).find("input").val() != $(this).find("input").attr('id')){
+                flgt = 1
+                //alert($(this).find("input").attr('name'))
+                bianhuadestr += "&_LRXLRXLRXLRXLRXLRX"+$(this).find("input").attr('name')+"="+$(this).find("input").val()
+            }
+        })
+        if(flgt == 1){
+            $.ajax({
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: "/washData/washaction/" ,//url
+                data: $('#'+formid).serialize()+bianhuadestr+"&columnname="+columnname+"&sitename="+sitename+"&tablename="+tablename+"&chehuiStack="+chehuiStack+"&adminname="+adminname,
+                success: function (data) {
+                    if(data.data == 'success'){
+                        if(chehuiStack < 0) chehuiStack = 0;
+                        chehuiStack = chehuiStack + 1
+                        alert("修改成功")
+                        $("#rollback").show()
+                        $(thisbtn).show();
+                    }
+                    else if(data.data == 'nopk'){
+                        alert("不能修改主码")
+                    }
+                    else{
+                        alert("修改失败")
+                    }
+                },
+                error : function(data) {
+                    alert('数据获取失败！')
+                }
+            });
+        }
+    }
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,611 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>social mind 舆情分析平台</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="{% static 'assets0/layui/css/layui.css' %}" media="all">
+    <script src="{% static 'assets0/layui/layui.js' %}"></script>
+    <link href="{% static 'assets0/css/bootstrap.css' %}" rel="stylesheet">
+    <!-- lalalala -->
+    <link rel="stylesheet" href="{% static 'assets0/css/screen.css' %}" type="text/css" media="screen">
+    <link rel="stylesheet" href="{% static 'assets0/css/responsive.css' %}" type="text/css" media="screen">
+    <link rel="stylesheet" href="{% static 'assets0/css/colorbox.css' %}" type="text/css" media="screen">
+    <!-- lalalala -->
+    <!--external css -->
+    <link href="{% static 'assets0/font-awesome/css/font-awesome.css' %}" rel="stylesheet"/>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'assets0/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'assets0/css/style-responsive.css' %}" rel="stylesheet">
+    <link href="{% static 'assets0/dataTable/css/jquery.dataTables.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'assets0/layui/css/layui.css' %}" media="all">
+    <script src="{% static 'assets0/js/chart-master/Chart.js' %}"></script>
+    <script src="{% static 'assets0/js/echarts.js' %}"></script>
+    <script src="{% static 'assets0/js/wordcloud2.js' %}"></script>
+    <script src="{% static 'assets0/js/china.js' %}"></script>
+    <script src="{% static 'assets0/js/echarts-wordcloud.min.js' %}"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        .icon-signal {
+            background-position: -408px 0
+        }
+
+        span.icon {
+            border-right: 1px solid #cdcdcd;
+            padding: 9px 10px 7px 11px;
+            float: left;
+            opacity: .7;
+        }
+
+        .r4_counter {
+            min-height: 100px;
+            margin-bottom: 15px;
+            border-radius: 7px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s ease-in-out;
+            background: #ffffff;
+            -webkit-box-shadow: 0 2px 28px rgba(0, 0, 0, .1);
+            box-shadow: 0 2px 28px rgba(0, 0, 0, .1);
+        }
+
+        .r4_counter .stats {
+            margin-left: 50px;
+        }
+
+        .ico-icon {
+            position: relative;
+        }
+
+        .ico-icon-w {
+            position: absolute;
+            top: 0;
+            left: 0
+        }
+
+        .ico-icon-w,
+        .r4_counter:hover .ico-icon .ico-icon-w {
+            visibility: hidden;
+        }
+
+        .r4_counter:hover .ico-icon .ico-icon-w {
+            visibility: visible;
+        }
+
+        .r4_counter.has-gradient-to-right-bottom .stats span {
+            color: #f7f7f7;
+        }
+
+        .r4_counter.has-gradient-to-right-bottom,
+        .r4_counter:hover {
+            -webkit-box-shadow: 0 1px 28px rgba(255, 152, 0, .66);
+            box-shadow: 0 1px 28px rgba(255, 152, 0, .66);
+            cursor: pointer;
+        }
+
+        .r4_counter:hover {
+            background-image: linear-gradient(to right bottom, #e8962e, #e45131) !important;
+        }
+
+        .r4_counter:hover h3 {
+            color: #fff
+        }
+
+        .r4_counter:hover span {
+            color: #f7f7f7
+        }
+
+        .r4_counter:hover .icon-primary {
+            color: #fff
+        }
+
+        .r4_counter .icon-after {
+            position: absolute;
+            width: 30%;
+            line-height: 75px;
+            height: 92%;
+            font-size: 84px;
+            color: #f7f7f7;
+            top: 5px;
+            right: 0;
+        }
+
+        .r4_counter.has-gradient-to-right-bottom .icon-after,
+        .r4_counter:hover .icon-after {
+            opacity: 0.2
+        }
+
+        .r4_counter .fa {
+            margin-right: 0px;
+            width: 66px;
+            height: 66px;
+            text-align: center;
+        }
+
+        .r4_counter h4 {
+            margin: 10px 0 5px 0;
+        }
+
+        .db_box {
+            background-color: #ffffff;
+            box-shadow: 0 1px 3px rgba(33, 33, 33, .2);
+            -webkit-box-shadow: 0 1px 3px rgba(33, 33, 33, .2);
+            -moz-box-shadow: 0 1px 3px rgba(33, 33, 33, .2);
+            -o-box-shadow: 0 1px 3px rgba(33, 33, 33, .2);
+            -ms-box-shadow: 0 1px 3px rgba(33, 33, 33, .2);
+
+        }
+
+        .db_box {
+            padding: 15px;
+        }
+
+        .db_box.db_box_large {
+            max-width: inherit;
+            background-color: #ffffff;
+            float: left;
+            margin: 0px 2% 0px 0px;
+            padding: 30px;
+            color: #757575 !important;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .db_box.db_box_large .bold {
+            text-align: left;
+            float: left;
+        }
+
+        .db_box.db_box_large .pull-right {
+            text-align: right;
+        }
+
+        .db_box.db_box_large .clearfix {
+            width: 100%;
+            height: 1px;
+            margin-bottom: 40px;
+        }
+
+        .wrapper1 {
+            display: inline-block;
+            margin-top: 0px;
+            padding-left: 15px;
+            padding-right: 15px;
+            padding-bottom: 15px;
+            padding-top: 0px;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* .btn:hover {
+            text-decoration: none !important;
+        } */
+    </style>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header layui-bg-cyan">
+        <div class="layui-logo">socialmind</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left layui-bg-cyan">
+            {% csrf_token %}
+                {% if role == "个人用户" %}
+                    <li class="layui-nav-item"><a href="/person_index/">首页</a></li>
+                    <li class="layui-nav-item"><a href="/events/?role=个人用户&type=兴趣相关">兴趣相关</a></li>
+                    <li class="layui-nav-item"><a href="/events/?role=个人用户&type=当地新闻">当地新闻</a></li>
+                    <li class="layui-nav-item"><a href="/events/?role=个人用户&type=敏感信息">敏感信息</a></li>
+                    <li class="layui-nav-item"><a href="/events/?role=个人用户&type=领域相关">领域相关</a></li>
+                    <li class="layui-nav-item"><a href="/events/?role=个人用户&type=行业信息">行业信息</a></li>
+                    <li class="layui-nav-item"><a href="/eventSearch/?role=个人用户">全网事件搜索</a></li>
+                    <li class="layui-nav-item"><a href="/fileSearch/?role=个人用户">全网文章搜索</a></li>
+                {% elif role == "企业用户" %}
+                    <li class="layui-nav-item"><a href="/com_index/">首页</a></li>
+                    <li class="layui-nav-item"><a href="/events/?role=企业用户&type=企业相关">企业相关</a></li>
+                    <li class="layui-nav-item"><a href="/events/?role=企业用户&type=当地新闻">当地新闻</a></li>
+                    <li class="layui-nav-item"><a href="/events/?role=企业用户&type=敏感信息">敏感信息</a></li>
+                    <li class="layui-nav-item"><a href="/events/?role=企业用户&type=领域相关">领域相关</a></li>
+                    <li class="layui-nav-item"><a href="/events/?role=企业用户&type=行业信息">行业信息</a></li>
+                    <li class="layui-nav-item"><a href="/competitive_products/">竞品信息</a></li>
+                    <li class="layui-nav-item"><a href="/eventSearch/?role=企业用户">全网事件搜索</a></li>
+                    <li class="layui-nav-item"><a href="/fileSearch/?role=企业用户">全网文章搜索</a></li>
+                {% elif role == "政府用户" %}
+                    <li class="layui-nav-item"><a href="/gov_index/">首页</a></li>
+                    <li class="layui-nav-item"><a href="/events/?role=政府用户&type=政务相关">政务相关</a></li>
+                    <li class="layui-nav-item"><a href="/events/?role=政府用户&type=当地新闻">当地新闻</a></li>
+                    <li class="layui-nav-item"><a href="/events/?role=政府用户&type=敏感信息">敏感信息</a></li>
+                    <li class="layui-nav-item"><a href="/events/?role=政府用户&type=领域相关">领域相关</a></li>
+                    <li class="layui-nav-item"><a href="/events/?role=政府用户&type=上下级信息">上下级信息</a></li>
+                    <li class="layui-nav-item"><a href="/eventSearch/?role=政府用户">全网事件搜索</a></li>
+                    <li class="layui-nav-item"><a href="/fileSearch/?role=政府用户">全网文章搜索</a></li>
+                {% elif role == "事业单位用户" %}
+                    <li class="layui-nav-item"><a href="/govcom_index/">首页</a></li>
+                    <li class="layui-nav-item"><a href="/events/?role=事业单位用户&type=工作相关">工作相关</a></li>
+                    <li class="layui-nav-item"><a href="/events/?role=事业单位用户&type=当地新闻">当地新闻</a></li>
+                    <li class="layui-nav-item"><a href="/events/?role=事业单位用户&type=敏感信息">敏感信息</a></li>
+                    <li class="layui-nav-item"><a href="/events/?role=事业单位用户&type=领域相关">领域相关</a></li>
+                    <li class="layui-nav-item"><a href="/events/?role=事业单位用户&type=上下级信息">上下级信息</a></li>
+                    <li class="layui-nav-item"><a href="/eventSearch/?role=事业单位用户">全网事件搜索</a></li>
+                    <li class="layui-nav-item"><a href="/fileSearch/?role=事业单位用户">全网文章搜索</a></li>
+                {% endif %}
+        </ul>
+        <ul class="layui-nav layui-layout-right layui-bg-cyan">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="/static/upload/test.jpg"src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    {{request.session.user_type}}
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="/profile/">基本资料</a></dd>
+                    <dd><a href="/jianbao/">简报制作</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="/logout/">退出</a></li>
+        </ul>
+    </div>
+
+
+    <div class="layui-body">
+        <div class="col-lg-9 main-chart mb">
+            <div id="morris">
+                <div class="row mb">
+                    <div class="col-lg-12">
+                        <div class="content-panel" style="padding-bottom: 15px;">
+                            {% csrf_token %}
+                            <h2 class="centered" style="float: left; width: 100%;"> &nbsp; &nbsp;{{ title }}</h2><br>
+                            <div class="eventDetials">
+                                <span class="margin-15">开始时间：{{ begintime }}</span>
+                                <span class="margin-15">结束时间：{{ endtime }}</span>
+                            </div>
+                            <div class="eventAbstract">
+                                <div style="padding: 20px;" id="abstract">
+                                    &nbsp; &nbsp; &nbsp; &nbsp; <strong>事件简介：</strong>{% if introduction != "" %}
+                                    {{ introduction }}
+                                    {% else %}
+                                    暂无事件简介
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div id="eventData" class="eventData"></div>
+                            <div class="eventComments"><br>
+                                <div style="float: left; margin-left: 25%; width: 40%;">
+                                    <input type="text"  class="form-control" placeholder="输入您要评论的内容：" id="commentInput">
+                                </div>
+                                <button type="button" class="btn btn-warning" style="height: 44px; width: 80px; margin-left: 5%;" onclick="addComments('{{ objectid }}')">🖊 评论</button>
+                                <div class="comments" id="commentsDiv"></div>
+                            </div>
+                            <div id="choiceFunc" class="eventData">
+                                <button class="btn btn-theme04 event3Buttons" id="change0" value="open0" onclick="changePage(this.value)">事件指数</button>
+                                <button class="btn btn-warning event3Buttons" id="change1" value="close1" onclick="changePage(this.value)">传播分析</button>
+                                <button class="btn btn-warning event3Buttons" id="change2" value="close2" onclick="changePage(this.value)">情感分析</button>
+                            </div>
+                            <div id="eventExponent" class="eventComments centered" style="display: block;">
+                                <table>
+                                    <td style="width: 33%;">
+                                        <div class="items">
+                                            <h4 class="centered mt">&nbsp; &nbsp;事件热度</h4>
+                                            <div id="heat" style="width: 100%; height: 350px;"></div>
+                                        </div>
+                                    </td>
+                                    <td style="width: 33%;">
+                                        <div class="items">
+                                            <h4 class="centered mt">&nbsp; &nbsp;事件敏感度</h4>
+                                            <div id="sensitive" style="width: 100%; height: 350px;"></div>
+                                        </div>
+                                    </td>
+                                    <td style="width: 33%;">
+                                        <div class="items">
+                                            <h4 class="centered mt">&nbsp; &nbsp;事件情感极性</h4>
+                                            <div id="polarity" style="width: 100%; height: 350px;"></div>
+                                        </div>
+                                    </td>
+                                </table>
+                                <div style="height: 350px; width: 90%; margin-left: 5%;" class="row">
+                                    <canvas id="heatTrendCount" height="300px" width="900px"></canvas>
+                                </div>
+                                <br>
+                                <br><br><br><br><br>
+
+
+                                <div style="height: 350px; width: 90%; margin-left: 5%;"class="row">
+                                    <canvas id="heatTime" height="300px" width="900px"></canvas>
+                                </div>
+                                <br>
+                                <br><br><br><br><br>
+                                <div class="eventComments row" id="maps" >
+                                    <div id="heatMap" style="width: 80%; height: 450px; margin-left: 15%;"></div>
+                                    <div id="sensitiveMap" style="width: 80%; height: 450px; margin-left: 15%;"></div>
+                                </div>
+                                <div class="eventCloud" id="eventCloud" style="height: 380px;">
+                                    <p class="centered" style="font-size: 20px; z-index: 10;"><strong>关键词云</strong></p>
+                                    <!-- <canvas id="cloud" style="position: center; width: 50%; height: 300px; z-index: -100;"></canvas> -->
+                                    <div id="cloud2" style="width: 100%;height: 350px;"></div>
+                                </div>
+                            </div>
+                            <div id="transportAnalyze" class="eventComments centered" style="display: none">
+                                <div class="eventTrend" id="eventTrend">
+                                    <p class="centered" style="font-size: 20px; padding-top: 15px;"><strong>事件走势</strong></p>
+                                    <!-- <img src="{% static 'assets0/img/eventTrend.png' %}" style="width: 80%; height: 80%;"> -->
+                                    <div class="container" style="text-align: left;width: 80%;margin-left: 20%">
+                                            <!-- <h1>线性时间轴</h1>
+                                            <p class="lead">Tarek Anandan的timeliner.js jQuery插件工作实例。本页包含两工作实例，说明几个关键特征包括展开/折叠，自动启动/加载，每页的多个时间线。</p> -->
+                                        
+                                            <h2>民权运动1954-1964</h2>
+                                        
+                                            
+                                            <div id="timelineContainer" class="timelineContainer">
+                                        
+                                                <div style="display: none" class="timelineToggle"><p><a class="expandAll">+ 全部展开</a></p></div>
+                                        
+                                                <br class="clear">
+                                        
+                                                <div class="timelineMajor">
+                                                    <h2 class="timelineMajorMarker"><span>1954</span></h2>
+                                                    <dl class="timelineMinor">
+                                                        <dt id="19540517"><a>布朗诉教育委员会</a></dt>
+                                                        <dd class="timelineEvent" id="19540517EX" style="display:none;">
+                                                            <h3>1954年5月17日</h3>
+                                                            <p>美国最高法院相传一致9-0决定在布朗诉托皮卡教育局案，打开大门，民权运动最终种族融合在美国社会的各个方面。推翻Plessy v. Ferguson（1896），法院裁定“隔离的教育设施是不平等的。</p>
+                                                            <br class="clear">
+                                                        </dd><!-- /.timelineEvent -->
+                                                    </dl><!-- /.timelineMinor -->
+                                                </div><!-- /.timelineMajor -->
+                                        
+                                                <div class="timelineMajor">
+                                                    <h2 class="timelineMajorMarker"><span>1955</span></h2>
+                                                    <dl class="timelineMinor">
+                                                        <dt id="19550828"><a>艾莫特·泰尔</a></dt>
+                                                        <dd class="timelineEvent" id="19550828EX" style="display:none;">
+                                                            <h3>1955年8月28日</h3>
+                                                            <p>十四岁的非裔美国人埃米特被残忍杀害后，据说与白人妇女在访问亲戚在密西西比州。这是第一次，黑人和白人记者报道这次审判的集大成者”之一的第二十世纪最令人震惊的和持久的故事。”白被告，Roy Bryant和J.W. Milam，都被一个白人陪审团仅67分钟；后来他们详细描述为看杂志（付给他们4000美元）他们杀了为止。母亲坚持开放的棺材，和他残缺的身体，强大的图像引起强烈的反应，在全国和世界。</p>
+                                        
+                                                            <br class="clear">
+                                                        </dd><!-- /.timelineEvent -->
+                                                    </dl><!-- /.timelineMinor -->
+                                        
+                                        
+                                                    <dl class="timelineMinor">
+                                                        <dt id="19551201"><a>罗萨公园</a></dt>
+                                                        <dd class="timelineEvent" id="19551201EX" style="display:none;">
+                                                            <h3>December 1, 1955</h3>
+                                                            <p>
+                                                                The arrest of Rosa Parks, a 42-year-old African-American seamstress and civil rights activist who refused to give up her bus seat to a white passenger, sets off a long anticipated bus boycott by residents of Montgomery, Ala. The 13-month protest and ensuing litigation eventually make it to the U.S. Supreme Court, which declares that segregation on public buses is unconstitutional.<sup>4</sup> The Montgomery bus boycott brings the Rev. Dr. Martin Luther King Jr. and his nonviolent approach to social change to the forefront of the civil rights movement.</p>
+                                        
+                                                                <br class="clear">
+                                                        </dd><!-- /.timelineEvent -->
+                                                    </dl><!-- /.timelineMinor -->
+                                                </div><!-- /.timelineMajor -->
+                                        
+                                                <div class="timelineMajor">
+                                                    <h2 class="timelineMajorMarker"><span>1957</span></h2>
+                                                    <dl class="timelineMinor">
+                                                        <dt id="19570904"><a>小石城</a></dt>
+                                                        <dd class="timelineEvent" id="19570904EX" style="display:none;">
+                                                            <h3>September 4, 1957</h3>
+                                        
+                                                    
+                                                            <p>
+                                                                Three years removed from the Brown v. Board of Education decision, Arkansas Gov. Orval Faubus orders the National Guard to stop nine black students from attending the all-white Little Rock Central High School. President Dwight D. Eisenhower intervenes by federalizing the National Guard and deploying Army troops to protect the students, stripping the state of power. Media coverage of the physical and verbal harassment the black students were subjected to is reported and broadcast around the world. In the end, they successfully integrate Central High. <sup>5</sup></p>
+                                        
+                                                            <br class="clear">
+                                                        </dd><!-- /.timelineEvent -->
+                                                    </dl><!-- /.timelineMinor -->
+                                                </div><!-- /.timelineMajor -->
+                                        
+                                                <div class="timelineMajor">
+                                                    <h2 class="timelineMajorMarker"><span>1961</span></h2>
+                                                    <dl class="timelineMinor">
+                                                        <dt id="19610504"><a>自由乘车运动</a></dt>
+                                                        <dd class="timelineEvent" id="19610504EX" style="display:none;">
+                                                            <h3>May 4, 1961</h3>
+                                                    
+                                                        <p>
+                                                            The first of many civil rights “Freedom Rides” leaves Washington, D.C., for New Orleans. The Freedom Riders want to test the validity of the Supreme Court’s decision to outlaw racial segregation in bus terminals and through interstate bus travel.<sup>6</sup> Angry white mobs – with the blessing of Alabama law enforcement – meet the convoy in Anniston and Birmingham, brutally beating the Freedom Riders and firebombing one of the buses.<sup>7</sup></p>
+                                                            <br class="clear">
+                                                        </dd><!-- /.timelineEvent -->
+                                                    </dl><!-- /.timelineMinor -->
+                                                </div><!-- /.timelineMajor -->
+                                        
+                                                <div class="timelineMajor">
+                                                    <h2 class="timelineMajorMarker"><span>1963</span></h2>
+                                                    <dl class="timelineMinor">
+                                                        <dt id="19630828"><a>“我有一个梦想”</a></dt>
+                                                        <dd class="timelineEvent" id="19630828EX" style="display:none;">
+                                                            <h3>August 28, 1963</h3>
+                                                            
+                                                            <p>
+                                                                In one of the largest gatherings in the nation’s capital and one of the first to be broadcast live on national television, at least 200,000 civil rights protesters stage a March on Washington concluding at the Lincoln Memorial. The march is dedicated to jobs and freedom and takes place 100 years after the&nbsp;Emancipation Proclamation. The highlight of the event is Martin Luther King Jr.’s historic “I Have a Dream” speech.</p>
+                                        
+                                                            <blockquote>
+                                                                I have a dream that one day this nation will rise up and live out the true meaning of its creed: "We hold these truths to be self-evident: that all men are created equal."
+                                                                <div class="attribution">&mdash;Martin Luthar King Jr.</div>
+                                                            </blockquote>
+                                        
+                                                            <br class="clear">
+                                                        </dd><!-- /.timelineEvent -->
+                                                    </dl><!-- /.timelineMinor -->
+                                        
+                                                </div><!-- /.timelineMajor -->
+                                        
+                                                <div class="timelineMajor">
+                                                    <h2 class="timelineMajorMarker"><span>1964</span></h2>
+                                        
+                                                    <dl class="timelineMinor">
+                                                        <dt id="19640702"><a>民权法案</a></dt>
+                                                        <dd class="timelineEvent" id="19640702EX" style="display:none;">
+                                                            <h3>July 2, 1964</h3>
+                                                            <p>
+                                                                President Lyndon B. Johnson signs the Civil Rights Act of 1964, mandating equal opportunity employment, and complete desegregation of schools and other public facilities. It also outlaws unequal voter registration requirements.<sup>13</sup> Although it would take years for these changes to take effect in communities around the country, the law is a monumental victory for the civil rights movement.</p>
+                                        
+                                                                <br class="clear">
+                                                        </dd><!-- /.timelineEvent -->
+                                                    </dl><!-- /.timelineMinor -->
+                                        
+                                                    <dl class="timelineMinor">
+                                                        <dt id="19641014"><a>诺贝尔和平奖</a></dt>
+                                                        <dd class="timelineEvent" id="19641014EX" style="display:none;">
+                                                            <h3>October 14, 1964</h3>
+                                                            <p>Martin Luther King Jr. is awarded the Nobel Peace Prize; at 35, he is the youngest recipient.</p>
+                                                            <br class="clear">
+                                                        </dd><!-- /.timelineEvent -->
+                                                    </dl><!-- /.timelineMinor -->
+                                        
+                                                </div><!-- /.timelineMajor -->
+                                                <br class="clear">
+                                            </div><!-- /#timelineContainer -->
+                                        
+                                        </div><!-- /.container -->
+                                </div>
+                                <div class="informSource" id="informSource">
+                                    <p class="centered" style="font-size: 20px; padding-top: 15px;"><strong>信息来源</strong></p>
+                                    <div id="informSourcePic" class="particularPic"></div>
+                                </div>
+                                <div id="mediaLiveness" class="mediaLiveness">
+                                    <br><p class="centered" style="font-size: 20px; padding-top: 15px;"><strong>媒体活跃度</strong></p>
+                                    <canvas id="mediaLivenessBar" style="height: 280px; width: 60%;"></canvas>
+                                </div>
+                                <br><br><br>
+                                <div id="informTree" class="informTree">
+                                    <br><p class="centered" style="font-size: 20px; padding-top: 15px;"><strong>信息传播过程</strong></p>
+                                    <div id="informTransPic" class="echartsLinePic"></div>
+                                </div>
+                                <div id="informNet" class="infromNet">
+                                    <br><p class="centered" style="font-size: 20px; padding-top: 15px;"><strong>信息传播网络</strong></p>
+                                    <div id="informNetPic" class="particularPic" style="margin-left: 20%"></div>
+                                </div>
+                            </div>
+                            <div id="emotionAnalyze" class="eventComments centered" style="display: none" hidden="true">
+                                <div class="row">
+                                    <div id="eventJudeg_emotion" style="width: 100%; height: 400px;">
+                                    <div id="eventJudge" style="width: 49%; margin-left: 1%; float: left;">
+                                        <div id="statisticsEJ" style="width: 70%; margin-left: 25%;">
+                                            <div class="pic" style="position: center; width: 100%; height: 100%;">
+                                                <canvas id="serverstatusEJ" height="120px" width="120px"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="eventEmotion" style="width: 49%; margin-left: 1%; float: left;">
+                                        <div id="statisticsEM" style="width: 70%; margin-left: 5%;">
+                                            <div class="pic" style="position: center; width: 100%; height: 100%;">
+                                                <canvas id="serverstatusEM" height="120px" width="120px"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="row">
+                                    <div class="eventComments" id="emMap" style="height: 400px; padding-top: 10px;">
+                                    <div id="emotionMap" style="width: 900px; height: 400px; margin-left: 15%;"></div>
+                                </div>
+                                </div>
+                                <div class="row">
+                                    <div class="emotionTrend" id="emotionTrendId">
+                                    <canvas id="emotionLine" height="350px" width="900px"></canvas>
+                                </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="correlationFiles">
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="layui-footer layui-bg-cyan" align="center">
+    <!-- 底部固定区域 -->
+    西安交通大学  社会智能与复杂数据处理实验室
+    </div>
+</div>
+<script src="{% static 'assets0/js/jquery.js' %}"></script>
+<script src="{% static 'assets0/js/jquery-1.8.3.min.js' %}"></script>
+<script src="{% static 'assets0/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets0/dataTable/js/jquery.dataTables.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets0/js/fileJs/particular.js' %}" type="text/javascript"></script>
+<script src="//res.layui.com/layui/src/layui.js?t=1531663423583" charset="utf-8"></script>
+<script>
+    layui.use('element', function () {
+        var element = layui.element;
+
+    });
+</script>
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cspan id='cnzz_stat_icon_30088308'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "w.cnzz.com/c.php%3Fid%3D30088308' type='text/javascript'%3E%3C/script%3E"));</script>
+<script>
+    window.onload = function () {
+        eventsTable();
+    };
+</script>
+
+</body>
+<!-- js placed at the end of the document so the pages load faster -->
+<script src="{% static 'assets0/js/jquery.js'%}"></script>
+{#<script src="{% static 'assets0/js/jquery.nicescroll.js'%}" type="text/javascript"></script>#}
+<script src="{% static 'assets0/js/jquery-1.8.3.min.js'%}"></script>
+<script src="{% static 'assets0/js/bootstrap.min.js'%}"></script>
+<script class="include" type="text/javascript" src="{% static 'assets0/js/jquery.dcjqaccordion.2.7.js'%}"></script>
+<script src="{% static 'assets0/js/jquery.scrollTo.min.js'%}"></script>
+<script src="{% static 'assets0/js/jquery.sparkline.js'%}"></script>
+
+<script type="text/javascript" src="{% static 'assets0/js/gritter/js/jquery.gritter.js'%}"></script>
+<script type="text/javascript" src="{% static 'assets0/js/gritter-conf.js'%}"></script>
+<!--common script for all pages-->
+<script src="{% static 'assets0/js/common-scripts.js'%}"></script>
+<script src="{% static 'assets0/js/layui.js'%}" charset="utf-8"></script>
+<!-- lalalala -->
+<script type="text/javascript" src="{% static 'assets0/js/colorbox.js'%}"></script>
+<script type="text/javascript" src="{% static 'assets0/js/timeliner.min.js'%}"></script>
+<script src="{% static 'assets0/js/fileJs/particular.js' %}"></script>
+<!-- lalalala -->
+<script>
+	$(document).ready(function() {
+		$.timeliner({
+			startOpen:['#19550828EX', '#19630828EX']
+		});
+		$.timeliner({
+			timelineContainer: '#timelineContainer_2'
+		});
+		// Colorbox Modal
+		$(".CBmodal").colorbox({inline:true, initialWidth:100, maxWidth:682, initialHeight:100, transition:"elastic",speed:750});
+	});
+</script>
+<script>
+    window.onload = function(){
+        loadEventOpear("{{ objectid }}");
+        loadEventComments("{{ objectid }}");
+        loadCorrelationFiles("{{ objectid }}", 0);
+        eventTrendStatistic();//事件走势统计
+        heatIndexBoom();//热度爆发统计
+        mediaLivenessIndex();//媒体活跃度
+        emotionTrend();//情绪走势统计
+        eventJudgeRatio();//事件正负面评价比例
+        emotionRatio();//事件情绪占比
+    };
+</script>
+<script>
+    eventHeatIndex();//事件热度
+    eventSensitiveIndex();//事件敏感度
+    eventPolarityEvent();//事件极性
+    heatIndexMap();//热度地图
+    sensitiveIndexMap();//敏感度地图
+    emotionMap();//情绪地图
+    keyWordsCloud();//关键词云
+    informSource();//信息来源
+    informTrans();//信息传播过程
+    informNet();//信息传播网络
+</script>
+</html>
